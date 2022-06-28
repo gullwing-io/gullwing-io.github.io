@@ -2,11 +2,62 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>gullwing.io</title>
+    <title>gullwing.io | Technical solutions | coming soon</title>
+    <meta name="description" content="Holding page for gullwing.io technical solutions" />
+    <link rel="icon" type="image/png" href="./img/_temp-icon.png" />
+    <style>
+      :root {
+        --primary-blue: #0083C9;
+        --primary-white: #FFF
+      }
+      body {
+        background: var(--primary-blue);
+        font-family: Helvetica, Arial, sans-serif;
+        color: var(--primary-white);
+      }
+      main {
+        display: flex;
+        flex-flow: wrap;
+        justify-content: center;
+        align-content: center;
+        height: 800px;
+        list-style: none;
+      }
+      ul {
+        padding: 0
+      }
+      li {
+        display: inline;
+      }
+      li + li::before {
+        content: " | ";
+      }
+      a {
+        color: var(--primary-white);
+        font-weight:normal;
+      }
+      nav {
+        width: 100%;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
     <main>
-      Holding page for gullwing.io
+      <img src="./img/_temp-logo.jpg" width="93" height="127" alt="gullwing.io" title="gullwing.io" />
+      <nav>
+        <ul>
+            <li>
+              <a href ="https://www.linkedin.com/in/robin-glen/" target="_blank" rel=”noopener noreferrer”>LinkedIn</a>
+            </li>
+            <li>
+              <a href ="https://medium.com/@robinglen" target="_blank" rel=”noopener noreferrer”>Medium</a>
+            </li>
+            <li>
+              <a href ="https://github.com/gullwing-io" target="_blank" rel=”noopener noreferrer”>Github</a>
+            </li>
+        </ul>
+    </nav>
     </main>
   </body>
 </html>
