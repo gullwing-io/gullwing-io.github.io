@@ -78,13 +78,17 @@
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.6.5/lottie.min.js"></script>
   <script>
-    bodymovin.loadAnimation({
+    var ani = bodymovin.loadAnimation({
       container: document.getElementById('ident'),
-      renderer: 'canvas',
-      loop: true,
+      renderer: 'svg',
+      loop: false,
       autoplay: true,
       path: 'ident/data.json'
     })
+    
+    // ani.onComplete(item => {
+    //   console.log('hello')
+    // })
   </script>
 </html>
 <!--
