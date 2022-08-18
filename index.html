@@ -8,9 +8,18 @@
       name="description"
       content="A full service technical and creative agency with experience in goverment agencies, multi-billion pound companies and start ups."
     />
-    <meta property="og:title" content="gullwing.io | Technical and creative agency" />
-    <meta property="og:description" content="A full service technical and creative agency with experience in goverment agencies, multi-billion pound companies and start ups." />
-    <meta property="og:image" content="https://www.gullwing.io/img/gullwing-icon.png" />
+    <meta
+      property="og:title"
+      content="gullwing.io | Technical and creative agency"
+    />
+    <meta
+      property="og:description"
+      content="A full service technical and creative agency with experience in goverment agencies, multi-billion pound companies and start ups."
+    />
+    <meta
+      property="og:image"
+      content="https://www.gullwing.io/img/gullwing-icon.png"
+    />
     <link rel="icon" type="image/png" href="./img/gullwing-icon.png" />
     <style>
       :root {
@@ -63,7 +72,7 @@
       }
       ul {
         padding: 0;
-        font-size:18px;
+        font-size: 18px;
       }
       li {
         display: inline;
@@ -195,6 +204,10 @@
         ident.style.cursor = "pointer";
         state = "stop";
         fireEvent("animation", { status: "start" });
+        setTimeout(() => {
+          enterSite();
+          fireEvent("enter", { method: "timer" });
+        }, 2000);
       }
       // exit segment
       if (animation.currentRawFrame === 54) {
@@ -218,11 +231,6 @@
         fireEvent("enter", { method: "client" });
       }
     });
-
-    setTimeout(() => {
-      enterSite();
-      fireEvent("enter", { method: "timer" });
-    }, 10000);
   </script>
 </html>
 <!--
