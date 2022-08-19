@@ -178,6 +178,7 @@
     const ps = document
       .getElementsByTagName("summary")[0]
       .getElementsByTagName("p");
+    const paragraphs = Array.prototype.slice.call(ps);
 
     const animation = bodymovin.loadAnimation({
       container: ident,
@@ -186,7 +187,7 @@
       autoplay: true,
       path: "ident/data.json",
       focusable: false,
-      initialSegment: [0, 110],
+      initialSegment: [0, 103],
     });
 
     const enterSite = () => {
@@ -200,14 +201,16 @@
 
     animation.addEventListener("complete", () => {
       // intro segment
-      if (animation.currentRawFrame === 109) {
+      if (animation.currentRawFrame === 102) {
         ident.style.cursor = "pointer";
         state = "stop";
         fireEvent("animation", { status: "start" });
         setTimeout(() => {
-          enterSite();
-          fireEvent("enter", { method: "timer" });
-        }, 2000);
+          if (state === "stop") {
+            enterSite();
+            fireEvent("enter", { method: "timer" });
+          }
+        }, 3000);
       }
       // exit segment
       if (animation.currentRawFrame === 54) {
@@ -215,7 +218,6 @@
           ident.remove();
         }
         selection.style.opacity = "1";
-        const paragraphs = Array.prototype.slice.call(ps);
         paragraphs.forEach((paragraph, index) => {
           paragraph.style.animation = `change ${
             index * 1
