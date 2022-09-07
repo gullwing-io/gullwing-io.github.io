@@ -1,33 +1,20 @@
-const fs = require('fs');
-const marked = require('marked');
+const {readdirSync} = require('fs');
+const {readFileSync} = require('fs');
+const {writeFileSync} = require('fs');
 
-var listOfDirectoryFiles = fs.readdirSync('markdown-blogs');
+const {marked} = require('marked');
 
-console.log(listOfDirectoryFiles);
-
-var listOfMarkdownFiles = [];
-//find the markdown files and put them in their own array
-for(let i = 0; i < listOfDirectoryFiles.length; i++){
-   const currentFileName = listOfDirectoryFiles[i];
-    const isMarkdown = currentFileName.indexOf(".md");
-    if(isMarkdown != -1){
-
-        listOfMarkdownFiles.push(currentFileName);
-    }
-}
+const listOfMarkdownFiles = readdirSync('markdown');
 
 console.log(listOfMarkdownFiles);
 
-for(let i =0; i< listOfMarkdownFiles.length; i++){
-    const currentFileName = listOfMarkdownFiles[i];
-    //store the whole markdown file contents in currentFileBuffer
-   const currentFileBuffer = fs.readFileSync('markdown-blogs/' + currentFileName);
+listOfMarkdownFiles.forEach(function(element){
+    const fileContent = readFileSync(`markdown/${element}`, 'utf8');
     //Turn content to string
-    const fileContent = currentFileBuffer.toString();
    //pass the file through marked
-   var newHTMLFile = marked.marked(fileContent);
+   var newHTMLFile = marked(fileContent);
    //get the new file name
-   const newFileName = currentFileName.slice(0,-2) + 'html';
+   const newFileName = element.replace('.md', '.html');
    //write the html file with its new name
-   fs.writeFileSync('html-blogs/'+newFileName, newHTMLFile);
-}
+   writeFileSync(newFileName, newHTMLFile);
+});
