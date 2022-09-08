@@ -1,4 +1,7 @@
-﻿# If data is so important why is it so difficult to access? How I built a data warehouse without any experience
+﻿
+
+
+# If data is so important why is it so difficult to access? How I built a data warehouse without any experience
 
 We are constantly told how important data is and how our companies make data driven decisions but in reality, this couldn’t be further from the truth.
 

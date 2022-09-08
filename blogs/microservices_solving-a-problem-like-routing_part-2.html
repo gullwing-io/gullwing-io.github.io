@@ -1,7 +1,6 @@
-<p>﻿</p>
-<h1 id="microservices-solving-a-problem-like-routing--part-2">Microservices: Solving a problem like routing — part 2</h1>
+<h1 id="microservicessolvingaproblemlikeroutingpart2">Microservices: Solving a problem like routing — part 2</h1>
 <p><em>This is the second part in a series around how we designed, build and introduced a new routing tier at</em> <a href="http://www.ynap.com/"><em>YNAP</em></a><em>,</em> <a href="https://medium.com/@robinglen/microservices-solving-a-problem-like-routing-part-1-8e48d789e57"><em>Part 1 is available here</em></a><em>.</em></p>
-<h2 id="doing-our-homework">Doing our homework</h2>
+<h2 id="doingourhomework">Doing our homework</h2>
 <p>We knew what we wanted to build now we needed to make sure, whatever we did, this new application could handle our peak traffic on sale.</p>
 <p>First we looked into a couple of available options:</p>
 <ul>
@@ -11,10 +10,10 @@
 <p>Although all looked great and worth a look if you have a similar issue, they didn’t quite match our requirements. There was a lot of features we didn’t need or didn’t need yet, we wanted to keep the service small and very light touch, so we started investigating creating our own.</p>
 <p>It’s important before just sitting down and writing code, you do your homework and understand the problem you’re trying to solve. The first step was to understand what kind traffic we would need to be able to handle. As described in <a href="https://medium.com/@robinglen/microservices-solving-a-problem-like-routing-part-1-8e48d789e57">part 1</a>, our systems were now distributed, sub teams only cared about their own applications metrics. There was now only one place we could easily collect overall hits to origin, CDN.</p>
 <p>There were two key patterns we wanted to understand:</p>
-<h3 id="normal-traffic">Normal traffic</h3>
-<p><img src="https://miro.medium.com/max/1090/1*CCr9iFEQCjEekfc-Cp7RXQ.png" alt="">
+<h3 id="normaltraffic">Normal traffic</h3>
+<p><img src="https://miro.medium.com/max/1090/1*CCr9iFEQCjEekfc-Cp7RXQ.png" alt="" />
 <sub>Daily traffic over a week</sub></p>
-<p><img src="https://miro.medium.com/max/1090/1*KK5VMnNnbTwDfvV8DN1URA.png" alt="">
+<p><img src="https://miro.medium.com/max/1090/1*KK5VMnNnbTwDfvV8DN1URA.png" alt="" />
 <sub>Traffic over a single day</sub></p>
 <p>As a global business we always have traffic but there are trends we can identify. Customers generally have three distinct shopping periods:</p>
 <ol>
@@ -23,20 +22,20 @@
 <li>At home in the evening</li>
 </ol>
 <p>These visible patterns make for a candidate for autoscaling, adding and removing servers as the are needed.</p>
-<h3 id="sale-traffic">Sale traffic</h3>
-<p><img src="https://miro.medium.com/max/1164/1*KXizIv7TNKpV1gPiqebaMQ.png" alt=""></p>
+<h3 id="saletraffic">Sale traffic</h3>
+<p><img src="https://miro.medium.com/max/1164/1*KXizIv7TNKpV1gPiqebaMQ.png" alt="" /></p>
 <p>Here we can see the impact of first markdowns on a sale. During the day, traffic steadily increases but when social media, email and notifications go out and this will peak normally within that hour. Traffic will be noticeably higher for the whole period however it’s the peak and that first 24 hours we need to focus on.</p>
 <p>We now understood the levels of traffic and the ratio of grow we needed to be able to handle.</p>
-<h3 id="making-a-technology-choice">Making a technology choice</h3>
+<h3 id="makingatechnologychoice">Making a technology choice</h3>
 <p>Once we had these metrics, we wanted to make sure we picked a technology that could handle the amount of requests needed. We looked a number of options but settled on:</p>
 <ul>
-<li><a href="https://www.nginx.com/blog/introduction-nginscript/">NGINX+ &amp; JS Module</a></li>
+<li><a href="https://www.nginx.com/blog/introduction-nginscript/">NGINX+ & JS Module</a></li>
 <li><a href="https://golang.org/">Go</a></li>
 <li><a href="https://nodejs.org/en/">Node JS</a></li>
 </ul>
 <p>At this point there was conversations that this system may ultimately end up back with the Ops team. This was something that went against the original design but because of this, we felt we had to investigate a technology they had more experience with. In the end although NGINX was a great option for proxying requests we decided for the programmatical requirements it didn’t suit our needs and ruled it out.</p>
 <p>So we were left with two programming languages. We wanted to test their raw throughput, to do this we would create a simple “Hello World” web application and see how they would compare against our hits to origin metrics.</p>
-<h3 id="hello-world">“Hello World”</h3>
+<h3 id="helloworld">“Hello World”</h3>
 <p>The plan was build a simple web application that just responded with a <code>200</code> and a body of “Hello world”. Then load test the service and record the latency and requests per second.</p>
 <p><strong>Load test configuration</strong></p>
 <p>At this point in time we only needed a simple load test. Both the application and the load test would be running on the same machine, for reference that is:</p>
@@ -52,18 +51,18 @@ Memory: 16 GB 1600 MHz DDR3
 <pre><code>package main
 
 import (
- &quot;fmt&quot;
- &quot;log&quot;
- &quot;net/http&quot;
+ "fmt"
+ "log"
+ "net/http"
 )
 
 func main() {
-http.HandleFunc(&quot;/&quot;, func(res http.ResponseWriter, req *http.Request) {
-  fmt.Fprint(res, &quot;Hello World&quot;)
+http.HandleFunc("/", func(res http.ResponseWriter, req *http.Request) {
+  fmt.Fprint(res, "Hello World")
  })
-  
-log.Println(&quot;Go Hello World listening on port 8123&quot;)
- http.ListenAndServe(&quot;:8123&quot;, nil)
+
+log.Println("Go Hello World listening on port 8123")
+ http.ListenAndServe(":8123", nil)
 }
 </code></pre>
 <ul>
@@ -72,16 +71,16 @@ log.Println(&quot;Go Hello World listening on port 8123&quot;)
 </ul>
 <p>We were more than happy with these results so didn’t attempt to tune any further.</p>
 <p><strong>Node — native HTTP</strong></p>
-<pre><code>const http = require(&#39;http&#39;);
+<pre><code>const http = require('http');
 const port = 8123;
 
 const server = http.createServer((req, res) =&gt; {
-    res.write(&#39;Hello World&#39;);
+    res.write('Hello World');
     res.end();
 });
 
 server.listen(port, () =&gt; {
-    console.log(`HTTP &quot;Hello World&quot; listening on port ${port}`);
+    console.log(`HTTP "Hello World" listening on port ${port}`);
 });
 </code></pre>
 <ul>
@@ -90,15 +89,15 @@ server.listen(port, () =&gt; {
 </ul>
 <p>This was considerably lower requests per second than we got from Go, so we introduced a web framework. We have previously used <a href="https://expressjs.com/">Express</a> and knew its capabilities but knew we needed something more performant so opted for <a href="https://www.fastify.io/">Fastify</a>.</p>
 <p><strong>Node — Fastify</strong></p>
-<pre><code>const fastify = require(&#39;fastify&#39;)();
+<pre><code>const fastify = require('fastify')();
 const port = 8123;
 
-fastify.get(&#39;*&#39;, (req, res) =&gt; {
-  res.send(&#39;Hello World&#39;);
+fastify.get('*', (req, res) =&gt; {
+  res.send('Hello World');
 });
 
 fastify.listen(port, () =&gt; {
-  console.log(`Fastify &quot;Hello World&quot; listening on port ${port}`);
+  console.log(`Fastify "Hello World" listening on port ${port}`);
 });
 </code></pre>
 <ul>
@@ -106,9 +105,9 @@ fastify.listen(port, () =&gt; {
 <li><strong>Req/Sec:</strong> 24,094</li>
 </ul>
 <p>Although this was a littler slower on latency we were now closer to the Go requests per second. The last improvement we made to the Node “Hello world” was to take advantage of the multiple cores by using simple clustering:</p>
-<pre><code>const cluster = require(&#39;cluster&#39;);
-const numCPUs = require(&#39;os&#39;).cpus().length;
-const fastify = require(&#39;fastify&#39;)();
+<pre><code>const cluster = require('cluster');
+const numCPUs = require('os').cpus().length;
+const fastify = require('fastify')();
 const port = 8123;
 
 if (cluster.isMaster) {
@@ -116,15 +115,15 @@ if (cluster.isMaster) {
   for (let i = 0; i &lt; numCPUs; i++) {
     cluster.fork();
   }
-  cluster.on(&#39;exit&#39;, worker =&gt; {
+  cluster.on('exit', worker =&gt; {
     console.log(`Worker ${worker.process.pid} died`);
   });
 } else {
-  fastify.get(&#39;*&#39;, (req, res) =&gt; {
-    res.send(&#39;Hello World&#39;);
+  fastify.get('*', (req, res) =&gt; {
+    res.send('Hello World');
   });
   fastify.listen(port, () =&gt; {
-    console.log(`Fastify &quot;Hello World&quot; listening on port ${port}, PID: ${process.pid}`);
+    console.log(`Fastify "Hello World" listening on port ${port}, PID: ${process.pid}`);
   });
 }
 </code></pre>
@@ -133,13 +132,13 @@ if (cluster.isMaster) {
 <li><strong>Req/Sec:</strong> 44,882</li>
 </ul>
 <p>To help you consume that a little easier.</p>
-<p><img src="https://miro.medium.com/max/1400/0*UNdmhPRhWorrfYa3" alt="">
+<p><img src="https://miro.medium.com/max/1400/0*UNdmhPRhWorrfYa3" alt="" />
 <sub>Comparing Go vs Node “Hello World” Req/Sec</p>
 <p>Now we knew both languages were viable options the next step was to create POCs in both.</p>
-<h2 id="building-a-couple-of-pocs">Building a couple of POCs</h2>
+<h2 id="buildingacoupleofpocs">Building a couple of POCs</h2>
 <p>We now know the two languages we were going to use to solve the problem, the next steps was taking a vertical slice of the application, building it and testing it.</p>
 <p>We opted for a Go proof of concept and another with Node + Fastify without clustering.</p>
-<h3 id="performance-testing-localisation">Performance testing localisation</h3>
+<h3 id="performancetestinglocalisation">Performance testing localisation</h3>
 <p>As described in the architecture one of the requirements for the application when it receives a request like:</p>
 <pre><code>$ curl -I http:localhost:8080/my-web-page
 </code></pre>
@@ -154,15 +153,15 @@ Location: http:localhost:8080/en-gb/my-web-page
 <li>If either are found use default.</li>
 </ol>
 <p>Once we build this feature, we load tested it on both POCs.</p>
-<p><img src="https://miro.medium.com/max/1400/0*8-iqEQTZ697mXLXm" alt="">
+<p><img src="https://miro.medium.com/max/1400/0*8-iqEQTZ697mXLXm" alt="" />
 <sub>Go vs Node + Fastify, localising requests.</sub></p>
 <p>Go consistently handled more requests and Node got slightly less performant as we added more concurrent users.</p>
-<h3 id="performance-testing-proxying-requests">Performance testing proxying requests</h3>
+<h3 id="performancetestingproxyingrequests">Performance testing proxying requests</h3>
 <p>The key feature of the application is to be able to proxy requests to the correct service based on a request, so we expect this to be the most common code path.</p>
-<p><img src="https://miro.medium.com/max/1400/0*f_pXdvDNgofE4EXl" alt="">
+<p><img src="https://miro.medium.com/max/1400/0*f_pXdvDNgofE4EXl" alt="" />
 <sub>Go vs Node + Fastify, proxying requests.</sub></p>
 <p>Although performance is similar to start with Go eclipses Node as we add more concurrent users. This however is to be expected, Go is taking advantage of multiple cores however in this instance Node is only using one.</p>
-<h3 id="selecting-a-technology">Selecting a technology</h3>
+<h3 id="selectingatechnology">Selecting a technology</h3>
 <p>Once we had run multiple load tests, tweaked our code, we had a clear winner when it came down to performance, Go.</p>
 <p>We decided to go with Node JS. Why when we saw it didn’t perform as well in our load tests?</p>
 <ol>

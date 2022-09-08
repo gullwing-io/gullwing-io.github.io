@@ -1,8 +1,8 @@
-<p>﻿# Microservices: Solving a problem like routing — 2020 update</p>
+<h1 id="microservicessolvingaproblemlikerouting2020update">Microservices: Solving a problem like routing — 2020 update</h1>
 <p>Well, where did those last two years go? Apologies for my tardiness, time really got the better of me. The good news is, we’ve had a further two years of production experience, improving performance, catching bugs, adding features and completely changing our infrastructure.</p>
 <p>In the final part of this series I’m going to run a retrospective on Locer (<strong>Loc</strong>alisation, <strong>E</strong>rrors and <strong>R</strong>outing), what went well, what we had to improve and what I would do differently.</p>
 <p>If you have just come into this series I recommend catching up on <a href="https://medium.com/ynap-tech/microservices-solving-a-problem-like-routing-part-1-8e48d789e57">Part 1</a> and <a href="https://medium.com/ynap-tech/microservices-solving-a-problem-like-routing-part-2-e197cdd1863c">Part 2</a> first.</p>
-<h1 id="what-went-well-😃">What went well 😃</h1>
+<h1 id="whatwentwell">What went well 😃</h1>
 <p>Locer is now routing frontend requests for the following brands:</p>
 <ul>
 <li><a href="https://www.mrporter.com/">Mr Porter</a></li>
@@ -17,11 +17,11 @@ We wanted to make sure developers felt free and empowered contribute to the proj
 <p>Locer has now had 23 different contributors to the core codebase along with 43 submitting changes to configuration and new routing rules. I considered this a huge success.</p>
 <p><strong>Performance and scalability</strong>
 We knew Go would outperform Node but we wanted to make sure our language selection would not become a bottleneck. We needed to ensure the application itself added as little overhead as possible while proxying requests and also following the requirements set out in <a href="https://medium.com/ynap-tech/microservices-solving-a-problem-like-routing-part-1-8e48d789e57">Part 1</a>.</p>
-<p><img src="https://miro.medium.com/max/700/1*Qin2XUn7ETCF4RLgYQL4_A.png" alt=""><sub>
+<p><img src="https://miro.medium.com/max/700/1*Qin2XUn7ETCF4RLgYQL4_A.png" alt="" /><sub>
 Locer production averaging 178ms response time over 24 hours
 </sub>
 We know through both <a href="https://www.jaegertracing.io/">Jaeger</a> and and also <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing#:~:text=The%20Server-Timing%20header%20communicates,or%20in%20the%20PerformanceServerTiming%20interface.">server timing headers</a> how much time of a request consists of network responses from an upstream service and how much is Locer itself.</p>
-<p><img src="https://miro.medium.com/max/528/1*TGlJtI9uSt2WYYou52Dzew.png" alt=""></p>
+<p><img src="https://miro.medium.com/max/528/1*TGlJtI9uSt2WYYou52Dzew.png" alt="" /></p>
 <p>Service timing headers for a product listing page</p>
 <p>This example trace shows that Locer called the product listing application, which fetched some data and rendered a response. Locer received this response and added only 1.55ms of processing time. We allowed a budget of 5ms for this processing and so far Locer has remained under it.</p>
 <p>Since the majority of work is asynchronous with a computation time of less than 5ms, we’re able to run a relative low number of instances and handle all of our traffic through one node application.</p>
@@ -31,33 +31,33 @@ Something that has been really amazing to see since we released Locer is wheneve
 <h2 id="fastify">Fastify</h2>
 <p>As discussed in <a href="https://medium.com/ynap-tech/microservices-solving-a-problem-like-routing-part-2-e197cdd1863c">Part 2</a> maximising requests per second with a consistent latency was massively important to the project. <a href="https://github.com/fastify/fastify">Fastify</a> helped us achieve that.</p>
 <blockquote>
-<p>Fastify is a web framework highly focused on providing the best developer experience with the least overhead and a powerful plugin architecture. It is inspired by Hapi and Express and as far as we know, it is one of the fastest web frameworks in town.</p>
+  <p>Fastify is a web framework highly focused on providing the best developer experience with the least overhead and a powerful plugin architecture. It is inspired by Hapi and Express and as far as we know, it is one of the fastest web frameworks in town.</p>
 </blockquote>
-<p><img src="https://miro.medium.com/max/445/1*DUBp6ZvT8NToXApwlfRKhw.png" alt=""><sub>
+<p><img src="https://miro.medium.com/max/445/1*DUBp6ZvT8NToXApwlfRKhw.png" alt="" /><sub>
 Benchmarks taken using <a href="https://github.com/fastify/benchmarks">https://github.com/fastify/benchmarks</a>
 </sub>
 As well as performance there were some other key features within Fastify that we loved.</p>
 <p><strong>Logging</strong>
 Within our Node apps we already use <a href="https://github.com/pinojs/pino">Pino</a> for logging and <a href="https://github.com/fastify/fastify/blob/master/docs/Logging.md">Fastify comes with it out of the box</a> with it available on the request object.</p>
-<pre><code>import fastify from &#39;fastify&#39;;
+<pre><code>import fastify from 'fastify';
 
 const app = ({  
   logger: true  
 });  
-  
-app.get(&#39;/&#39;, options, (req, res) =&gt; {  
-  request.log.info(&#39;Some info about the current request&#39;);  
-  reply.send({ hello: &#39;world&#39; });  
+
+app.get('/', options, (req, res) =&gt; {  
+  request.log.info('Some info about the current request');  
+  reply.send({ hello: 'world' });  
 });
 </code></pre>
 <p><strong>Hooks</strong>
 <a href="https://github.com/fastify/fastify/blob/master/docs/Hooks.md">Hooks</a> allow you to listen to specific events in the application or request/response lifecycle. We use them for a range of things: registering redirects, adding <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing#:~:text=The%20Server-Timing%20header%20communicates,or%20in%20the%20PerformanceServerTiming%20interface.">server timing headers</a> and a really simple example adding a “x-powered-by” to the response headers.</p>
-<pre><code>import fp from &#39;fastify-plugin&#39;;
+<pre><code>import fp from 'fastify-plugin';
 
 export default () =&gt; {  
   return fp((app, options, next) =&gt; {  
-    app.addHook(&#39;preHandler&#39;, (req, res, done) =&gt; {  
-      res.header(&#39;x-powered-by&#39;, &#39;locer&#39;);  
+    app.addHook('preHandler', (req, res, done) =&gt; {  
+      res.header('x-powered-by', 'locer');  
       done();  
     });  
     next();  
@@ -66,10 +66,10 @@ export default () =&gt; {
 </code></pre>
 <p><strong>Decorators</strong>
 The <a href="https://github.com/fastify/fastify/blob/master/docs/Decorators.md">decorators API</a> allows customisation of the core Fastify objects, such as the server instance itself and any request and reply objects used during the HTTP request lifecycle. Again, you can find decorators throughout the Locer code. We found it most useful when handling errors.</p>
-<pre><code>app.decorateReply(&#39;errorPage&#39;, (statusCode, req, res, error) =&gt; {  
+<pre><code>app.decorateReply('errorPage', (statusCode, req, res, error) =&gt; {  
   req.log.error(error);  
   res.code(statusCode)  
-     .type(&#39;text/html&#39;)  
+     .type('text/html')  
      .send(`  
            &lt;div&gt;  
               Error: ${error.message}  
@@ -79,51 +79,52 @@ The <a href="https://github.com/fastify/fastify/blob/master/docs/Decorators.md">
 });
 </code></pre>
 <p>From there, whenever you have access to the response object (I have used the express naming convention Fastify referrers to it as <a href="https://github.com/fastify/fastify/blob/master/docs/Reply.md">Reply</a>) you can respond with your error page:</p>
-<pre><code>import got from &#39;got&#39;;
+<pre><code>import got from 'got';
 
-app.get(&#39;/&#39;, options, async (req, res) {  
+app.get('/', options, async (req, res) {  
   try {  
-    const { statusCode, body } = await got(&#39;/api&#39;);  
+    const { statusCode, body } = await got('/api');  
     if (statusCode === 200) {  
       res.send(body)  
     } else {  
-      res.errorPage(statusCode, req, res, &#39;Invalid status code&#39;);  
+      res.errorPage(statusCode, req, res, 'Invalid status code');  
     }  
   catch(error) {  
-    res.errorPage(503, req, res, &#39;Fetch failed&#39;);  
+    res.errorPage(503, req, res, 'Fetch failed');  
   }  
 });
 </code></pre>
 <p><strong>Thoughts on Fastify</strong>
 We love Fastify! We already had a lot of IP built around <a href="https://expressjs.com/en/starter/installing.html">Express</a> but the great news was it just worked out of the box with Fastify. If you are looking at a project and have traditionally always opted for Express then consider moving, you won’t be disappointed.</p>
-<h1 id="where-we-made-improvements-🤔">Where we made improvements 🤔</h1>
+<h1 id="wherewemadeimprovements">Where we made improvements 🤔</h1>
 <p>With any piece of software, you will find things to improve and ways to fine-tune performance over time. Locer was no different, while we tested it rigorously there are some things we didn’t see until it was in the wild.</p>
-<h2 id="memory-and-cpu-consumption-improvements">Memory and CPU consumption improvements</h2>
+<h2 id="memoryandcpuconsumptionimprovements">Memory and CPU consumption improvements</h2>
 <p>As part of keeping our costs down and the application stable, we were constantly looking to improve its performance within our cluster. One of the biggest contributors to that were the <a href="https://v8.dev/">V8</a> improvements on Node releases, but here are some additional changes we made that could help you.</p>
 <p><strong>Fastify requesting buffers and returning promises</strong>
 When the project started we were always inspecting the response from our services to understand how to handle the request. This added a large overhead of having to process large HTML responses. Fastify however allows lets us to deal with <a href="https://github.com/fastify/fastify/blob/master/docs/Reply.md#buffers">buffers</a> and <a href="https://github.com/fastify/fastify/blob/master/docs/Reply.md#async-await-and-promises">promises</a> as responses. This change massively improved our application’s CPU usage.</p>
-<p><img src="https://miro.medium.com/max/700/0*T-BRsXnDKRPZ9Ooo" alt=""><sub>
+<p><img src="https://miro.medium.com/max/700/0*T-BRsXnDKRPZ9Ooo" alt="" /><sub>
 CPU core usage is almost halved
 </sub>
-<img src="https://miro.medium.com/max/700/0*O-zoHBWbD9WWsZAY" alt=""><sub>
+<img src="https://miro.medium.com/max/700/0*O-zoHBWbD9WWsZAY" alt="" /><sub>
 With the CPU defining out scaling — we are now running half the replicas
 </sub>
 This change also meant we could also now proxy other types of requests like ones for images.</p>
 <p><strong>Tuning your Docker image</strong>
 We spent a long time tuning our Docker images with multi-staged builds and the correct base image for what we needed. We managed to go from over 800mb to around 100mb.</p>
-<p>For a good explanation on how you can do this, read this great article:<br><a href="https://learnk8s.io/blog/smaller-docker-images">3 simple tricks for smaller Docker images</a></p>
+<p>For a good explanation on how you can do this, read this great article:<br />
+<a href="https://learnk8s.io/blog/smaller-docker-images">3 simple tricks for smaller Docker images</a></p>
 <p>One change from this article though - when starting your image don’t do it from the scope of NPM or YARN but from node itself.</p>
-<pre><code>CMD [&quot;node&quot;, &quot;index.js&quot;]
+<pre><code>CMD ["node", "index.js"]
 </code></pre>
 <p><a href="https://twitter.com/iamakulov/status/1030904826505375744">This can save you an additional 70Mb of RAM</a>.</p>
-<h2 id="service-readiness">Service readiness</h2>
+<h2 id="servicereadiness">Service readiness</h2>
 <p>One of the problems we encountered when moving to Kubernetes and <a href="https://istio.io/">Istio</a> (our <a href="https://itnext.io/istio-service-mesh-the-step-by-step-guide-adf6da18bb9a">service mesh</a>) was around boot time dependencies. Locer needs to call our country service before it can serve traffic - this is how it can validate locales in URL patterns. The problem was that since Locer started so quickly, the call would happen before the <a href="https://istio.io/latest/docs/reference/config/networking/sidecar/">Istio sidecar</a> was available to handle network requests.</p>
 <p>This meant the application would start and, due to the <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/">healthcheck endpoint</a> being available Kubernetes would add it to the pool of available pods. The boot time dependency would fail as Istio is not ready and therefore application would be in a stuck state receiving requests it could not process. We solved this in two ways:</p>
 <p><strong>Boot dependency retries</strong>
 When the app started, if it failed to fetch from the country service it would use a retry with an exponential backoff. This would allow the Istio sidecar time to start and handle our requests.</p>
 <p><strong>Readiness endpoint</strong>
 Previously we were only using healthcheck endpoints which meant we started allowing traffic straight away. We now had an endpoint that would return a 5xx until country service had been successfully fetched. This would then set the response to a 200 letting Kubernetes know Locer was ready to accept traffic.</p>
-<h1 id="what-i-might-do-differently-💡">What I might do differently 💡</h1>
+<h1 id="whatimightdodifferently">What I might do differently 💡</h1>
 <p>While we are very happy with what we have, if I was starting now based on the direction our architecture took and the industry has moved, there are a few things I might do differently.</p>
 <p>During its inception and to production we were running all of our Microservices in <a href="https://aws.amazon.com/elasticbeanstalk/">ElasticBeanstalk</a>. Once Locer was up and running it became apparent our infrastructure did not scale in the way we wanted, so myself and a small team started investigating moving the frontend to Kubernetes. We wanted ease of deployments but also wanted to include a service mesh for observability, so it was agreed our new infrastructure would include both Kubernetes and Istio together.</p>
 <p>While Locer still worked within this architecture it also introduced some complexity when we started to build serverside A/B testing. Istio has the concept of <a href="https://istio.io/latest/docs/concepts/traffic-management/">traffic management</a> which allows you to do things like load balancing, weighted traffic (A/B) and canary releases. Here is an example of weighted routing rules:</p>
@@ -147,7 +148,7 @@ spec:
 <p>This would mean 75% of customers get the <em>control</em> application and 25% get the experimental <em>variant</em>.</p>
 <p>We could could apply these conditions to individual microservices, giving teams the power to run multiple versions of an application with Istio doing all the routing for you.</p>
 <p>Where does Locer come into all of this? Well if you think back to the original architecture diagram.</p>
-<p><img src="https://miro.medium.com/max/700/0*lRK1FeZFBVDwuuEf.png" alt=""><sub>
+<p><img src="https://miro.medium.com/max/700/0*lRK1FeZFBVDwuuEf.png" alt="" /><sub>
 Routing our Microservices architecture in 2018
 </sub>
 Locer is the ingress for all the microservices, the configuration that matches request to a service is shipped as a <a href="https://helm.sh/">helm chart</a>:</p>
@@ -165,9 +166,9 @@ Locer is the ingress for all the microservices, the configuration that matches r
 <li><strong>Catch all</strong> — If for some reason the inbound URL doesn’t match a pattern for a Microservice, try and return them some relevant content</li>
 </ol>
 <p>It’s not just routing that is required, we also need some scripting and the ability to test the code.</p>
-<h2 id="introducing-webassembly-into-envoy-and-istio">Introducing WebAssembly into Envoy and Istio</h2>
+<h2 id="introducingwebassemblyintoenvoyandistio">Introducing WebAssembly into Envoy and Istio</h2>
 <p>In <a href="https://istio.io/latest/blog/2020/wasm-announce/">March 2020 it was announced</a> we would be able to extend envoy proxies and run them as sidecars using <a href="https://webassembly.org/">WebAssembly</a>.</p>
-<p><img src="https://miro.medium.com/max/700/1*Ue3QYVBT4JApyBa4Yk-HMg.png" alt=""><sub>
+<p><img src="https://miro.medium.com/max/700/1*Ue3QYVBT4JApyBa4Yk-HMg.png" alt="" /><sub>
 Locer could now sit within the envoy proxy sidecar
 </sub>
 This would essentially allow Locer to move from an ingress to sidecar for every microservice. We could then take advantage of the Istio advanced traffic management throughout the stack and not just on Locer.</p>

@@ -1,7 +1,6 @@
 {
   "name": "blogs",
   "version": "1.0.0",
-  "description": "",
   "main": "converter.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "marked": "^4.1.0"
-  }
+    "marked": "^4.1.0",
+    "showdown": "^2.1.0"
+  },
+  "description": ""
 }

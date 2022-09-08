@@ -1,6 +1,6 @@
-<p>﻿# How we built a service worker for our micro-frontend</p>
+<h1 id="howwebuiltaserviceworkerforourmicrofrontend">How we built a service worker for our micro-frontend</h1>
 <p>Over the last year we have been building the new <a href="https://www.mrporter.com/en-us/">MR PORTER</a> website (currently available in many of our markets) and <a href="https://www.theoutnet.com">THE OUTNET</a> on our new brand-agnostic <a href="https://martinfowler.com/articles/micro-frontends.html">micro-frontend architecture</a>.</p>
-<p><img src="https://miro.medium.com/max/1400/0*cMSPfkcfEZPzOhGn.png" alt="An overview of our frontend architecture"><sub>An overview of our frontend architecture, taken from a previous article: <a href="https://medium.com/@robinglen/microservices-solving-a-problem-like-routing-part-1-8e48d789e57">Solving a problem like routing</a>
+<p><img src="https://miro.medium.com/max/1400/0*cMSPfkcfEZPzOhGn.png" alt="An overview of our frontend architecture" /><sub>An overview of our frontend architecture, taken from a previous article: <a href="https://medium.com/@robinglen/microservices-solving-a-problem-like-routing-part-1-8e48d789e57">Solving a problem like routing</a>
 </sub>
 Although we had not done a complete discovery phase around <a href="https://developers.google.com/web/progressive-web-apps">Progressive Web Apps</a> we knew <a href="https://developers.google.com/web/fundamentals/primers/service-workers">service worker</a> offered us features we could rollout iteratively.</p>
 <p>We started with the goal to use service worker to improve our performance metrics. We would do this in multiple ways:</p>
@@ -10,9 +10,9 @@ Although we had not done a complete discovery phase around <a href="https://deve
 <li>Using <a href="https://developers.google.com/web/fundamentals/architecture/app-shell">app shell</a> architecture to cache <code>html</code></li>
 <li>Use <a href="https://developers.google.com/web/updates/2017/02/navigation-preload">navigation preload</a> to improve the performance of the service worker itself</li>
 </ul>
-<h1 id="business-and-architectural-requirements-for-our-service-worker">Business and architectural requirements for our service worker</h1>
+<h1 id="businessandarchitecturalrequirementsforourserviceworker">Business and architectural requirements for our service worker</h1>
 <p>If we were going to implement a service worker we had some key business and architectural requirements we would need to make sure we could support.</p>
-<h2 id="micro-frontend-architecture">Micro-frontend architecture</h2>
+<h2 id="microfrontendarchitecture">Micro-frontend architecture</h2>
 <p>Our frontend is designed around our different customers user flows:</p>
 <p><strong>Commerce</strong></p>
 <ul>
@@ -39,12 +39,12 @@ Although we had not done a complete discovery phase around <a href="https://deve
 <p>When an applications master branch is built we create a <a href="https://www.docker.com/">Docker</a> image, tag it with a <a href="https://semver.org/">semantic version</a>, publish the image to <a href="https://aws.amazon.com/ecr/">ECR</a> and a <a href="https://helm.sh/docs/developing_charts/">helm chart</a> to <a href="https://aws.amazon.com/s3/">S3</a>.</p>
 <p>From here we have two different deployment types:</p>
 <p><em>Application development environments</em></p>
-<p><img src="https://miro.medium.com/max/1400/1*jjk4VGLhwa4Rnk2vb8bXdQ.png" alt=""><sub>How we deploy an application to a development environment
+<p><img src="https://miro.medium.com/max/1400/1*jjk4VGLhwa4Rnk2vb8bXdQ.png" alt="" /><sub>How we deploy an application to a development environment
 </sub>
 Application development environments are configured within the applications repo. When the artefact is published to <a href="https://aws.amazon.com/ecr/">ECR</a> and the <a href="https://helm.sh/docs/developing_charts/">helm chart</a> to <a href="https://aws.amazon.com/s3/">S3</a>, it will also be pushed to <a href="https://kubernetes.io/">Kubernetes</a>. This will trigger the images to be pulled from <a href="https://aws.amazon.com/ecr/">ECR</a> and deployed to the relevant pods.</p>
 <p>These environments are used for running a micro-service in multiple configurations or spinning up instances for every pull request.</p>
 <p><em>Full stack environments</em></p>
-<p><img src="https://miro.medium.com/max/1400/1*mbRsiUBaGR7Onst3qzEktA.png" alt=""><sub>How we deploy applications to a full stack environment
+<p><img src="https://miro.medium.com/max/1400/1*mbRsiUBaGR7Onst3qzEktA.png" alt="" /><sub>How we deploy applications to a full stack environment
 </sub>
 Developer environments are useful for testing a service in isolation, but we also need to test all the services integrated, routing rules and internal networking.</p>
 <p>For this we have environment based stacks that have their own repo and <a href="https://helm.sh/docs/developing_charts/">helm charts</a>. When a developer wants to release an application, we use the <a href="https://www.weave.works/technologies/gitops/">gitOps</a> methodology, using the <a href="https://semver.org/">semantic version</a> tag to update a <code>yaml</code> configuration within the helm chart.</p>
@@ -57,7 +57,7 @@ Developer environments are useful for testing a service in isolation, but we als
 <a href="https://cache.mrporter.com/assets/mrp-d5208199.css" title="example2">[/assets/mrp-d5208199.css]</a>
 </pre>
 <p>We then have a reverse proxy (<a href="https://www.getambassador.io/">Ambassador</a>) within <a href="https://kubernetes.io/">Kubernetes</a> that maps to our <a href="https://aws.amazon.com/s3/">S3</a> asset bucket. So it doesn’t matter which version of an application is running on any environment the assets are always available.</p>
-<h2 id="multiple-brands-sharing-technology">Multiple brands sharing technology</h2>
+<h2 id="multiplebrandssharingtechnology">Multiple brands sharing technology</h2>
 <p>One of the goals of the frontend team was to decrease time to market and eliminate repeated effort. However, this makes applications more complicated because they could be (currently) serving three different stores:</p>
 <ul>
 <li>MR PORTER</li>
@@ -65,51 +65,52 @@ Developer environments are useful for testing a service in isolation, but we als
 <li>THE OUTNET</li>
 </ul>
 <p>These stores and their supporting teams have their own release cadence, so again we need different environments to be running different assets. This means we need a different service worker for each environment.</p>
-<h2 id="internationalised-website">Internationalised website</h2>
+<h2 id="internationalisedwebsite">Internationalised website</h2>
 <p>Our applications need to be available in multiple languages, although some <code>api</code> responses are internationalised we still need to ship <a href="https://messageformat.github.io/messageformat/">message bundles</a> for certain areas like button call to actions.</p>
 <p>We don’t want to make an overly bloated client-side app by packaging message bundles with the translations for all the languages we support with the application code. So we generate a translated version of each application:</p>
 <p><a href="https://cache.mrporter.com/assets/mrp-2b33587a.js">/assets/mrp-en-2b33587a.js</a></p>
 <p>So we need the service worker to only cache the <code>js</code> for the language variant of the site they are currently viewing.</p>
-<h1 id="introducing-woz">Introducing Woz</h1>
+<h1 id="introducingwoz">Introducing Woz</h1>
 <p>Once we collected our requirements it became apparent a <code>sw.js</code> file mounted to the root of our website would not work. We started to look into generating service workers based on the inbound request, this gave birth to Woz.</p>
 <blockquote>
-<p><em>Service worker…</em>
-<em>SW…</em>
-<em>Steve Wozniak…</em><br><em>Woz…</em></p>
+  <p><em>Service worker…</em>
+  <em>SW…</em>
+  <em>Steve Wozniak…</em><br />
+  <em>Woz…</em></p>
 </blockquote>
 <p>A dynamic service worker service build in <a href="https://nodejs.org/en/">Node.js</a> that would help us solve the requirements mentioned above.</p>
-<h2 id="micro-frontend-architecture-1">Micro-frontend architecture</h2>
+<h2 id="microfrontendarchitecture-1">Micro-frontend architecture</h2>
 <p>To get around the problem with services having multiple environments, each that could be running a different semantic version, we decided each domain specific application should expose an endpoint stating which assets are currently being used. This would only be available within our cluster:</p>
 <pre><code>$ curl [http://sample-app/_tools_/assets]
 </code></pre>
 <p>This would return the following JSON:</p>
 <pre><code>{  
-  &quot;application&quot;: {  
-    &quot;name&quot;:&quot;Sample application&quot;,  
-    &quot;id&quot;:&quot;sample-application&quot;  
+  "application": {  
+    "name":"Sample application",  
+    "id":"sample-application"  
   },  
-  &quot;ton&quot;: [  
+  "ton": [  
     {  
-      &quot;en&quot;: {  
-        &quot;js&quot;:&quot;ton-en-9a52f02a.js&quot;,  
-        &quot;css&quot;:&quot;ton-57bf5cf1.css&quot;  
+      "en": {  
+        "js":"ton-en-9a52f02a.js",  
+        "css":"ton-57bf5cf1.css"  
       }  
     }  
   ],  
-  &quot;mrp&quot;: [  
+  "mrp": [  
     {  
-      &quot;en&quot;: {  
-        &quot;js&quot;:&quot;mrp-en-da9f468f.js&quot;,  
-        &quot;css&quot;:&quot;mrp-df414bbc.css&quot;  
+      "en": {  
+        "js":"mrp-en-da9f468f.js",  
+        "css":"mrp-df414bbc.css"  
       }  
     }  
   ],  
-  &quot;common&quot;: [  
+  "common": [  
     {  
-      &quot;vendor&quot;: &quot;vendor-57fc54c7.js&quot;         
+      "vendor": "vendor-57fc54c7.js"         
     },  
     {  
-      &quot;ynap&quot;: &quot;ynap-195b6804.js&quot;         
+      "ynap": "ynap-195b6804.js"         
     }  
   ]  
 }
@@ -121,23 +122,23 @@ Developer environments are useful for testing a service in isolation, but we als
       manifest: [http://localhost:3000/sample-app/_tools_/assets]
 </code></pre>
 <p>When a request comes in for a service worker, we create a promise to fetch all of the required manifests. We then cache them individually based on headers set by the service asset manifest endpoints <code>max-age</code>.</p>
-<h2 id="multiple-brands-sharing-technology-1">Multiple brands sharing technology</h2>
+<h2 id="multiplebrandssharingtechnology-1">Multiple brands sharing technology</h2>
 <p>This one is relatively straightforward, we have the brand set as an environmental variable, which we can easily access from Node.js.</p>
 <pre><code>const { brand } = process.env
 </code></pre>
 <p>We use this to filter the required brand from the assets endpoint.</p>
-<h2 id="internationalised-website-1">Internationalised website</h2>
+<h2 id="internationalisedwebsite-1">Internationalised website</h2>
 <p>We want service worker to only cache assets for the requested language, the first step towards this was to scope service worker using the our localisation pattern:</p>
 <pre><code>$ curl [http://woz/en-gb/sw.js]
 </code></pre>
 <p>Thanks to our approach all our new services have to be localised and follow the same pattern <code>{language}-{country}</code>. This means service workers are never for the entire site but only for a language and country locale.</p>
 <p>Woz then uses <a href="https://expressjs.com/en/api.html#req.params">Express request parameters</a> to pick out the requested language and again, select the relative entry from the assets endpoint.</p>
-<h2 id="generating-a-dynamic-service-worker">Generating a dynamic service worker</h2>
+<h2 id="generatingadynamicserviceworker">Generating a dynamic service worker</h2>
 <p>We have collected the assets we need to generate the service worker we could look at the three different areas of performance we wanted to look at.</p>
 <p><strong>Caching</strong> <code>**css**</code> <strong>and</strong> <code>**js**</code></p>
 <p>Having attended different Google events and hackathons we decided early on we were going to use <a href="https://developers.google.com/web/tools/workbox">Workbox</a> to build our service worker. There is already an <code>api</code> that will allow us to cache our asset out of the box.</p>
 <blockquote>
-<p><em>Workbox takes a lot of the heavy lifting out of <a href="https://developers.google.com/web/tools/workbox/modules/workbox-precaching">pre-caching</a> by simplifying the API and ensuring assets are downloaded efficiently.</em></p>
+  <p><em>Workbox takes a lot of the heavy lifting out of <a href="https://developers.google.com/web/tools/workbox/modules/workbox-precaching">pre-caching</a> by simplifying the API and ensuring assets are downloaded efficiently.</em></p>
 </blockquote>
 <p>Implementing it is extremely simple:</p>
 <pre><code>workbox.precaching.precacheAndRoute([“/assets/mrp-en-da9f468f.js”]);
@@ -151,8 +152,8 @@ Developer environments are useful for testing a service in isolation, but we als
 <p><strong>Improve third party script caching</strong></p>
 <p>Third-party scripts can be a performance killer. We wanted the ability to override their cache policy within a service worker.</p>
 <blockquote>
-<p><em>A service worker can intercept network requests for a page. It may respond to the browser with cached content, content from the network or content generated in the service worker.</em></p>
-<p><em><a href="https://developers.google.com/web/tools/workbox/modules/workbox-routing">workbox-routing</a> is a module which makes it easy to “route” these requests to different functions that provide responses.</em></p>
+  <p><em>A service worker can intercept network requests for a page. It may respond to the browser with cached content, content from the network or content generated in the service worker.</em></p>
+  <p><em><a href="https://developers.google.com/web/tools/workbox/modules/workbox-routing">workbox-routing</a> is a module which makes it easy to “route” these requests to different functions that provide responses.</em></p>
 </blockquote>
 <p>An additional complexity is often third-party scripts don’t have <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">cross origin headers</a> so they are treated like an <a href="https://blog.fullstacktraining.com/what-is-an-opaque-response">opaque response</a>. This means they can’t be cached like a normal asset, again Workbox comes to the rescue and has a way of dealing with <a href="https://developers.google.com/web/tools/workbox/guides/handle-third-party-requests">third party scripts</a> without <code>cors</code>.</p>
 <p>We extended their example to also include overriding the <code>ttl</code>:</p>
@@ -164,7 +165,7 @@ Developer environments are useful for testing a service in isolation, but we als
 workbox.routing.registerRoute(  
   script.url,    
   new workbox.strategies.CacheFirst({  
-    &#39;third-party-scripts&#39;, # cache name  
+    'third-party-scripts', # cache name  
     plugins: [   
       new expiration.Plugin({  
         maxEntries: 1, # you only need one entry per script  
@@ -186,7 +187,7 @@ workbox.routing.registerRoute(
 </code></pre>
 <p><strong>Using</strong> <a href="https://developers.google.com/web/fundamentals/architecture/app-shell"><strong>app shell</strong></a> <strong>architecture to cache html</strong></p>
 <blockquote>
-<p><em>The app “shell” is the minimal HTML, CSS and JavaScript required to power the user interface and when cached offline can ensure <strong>instant, reliably good performance</strong> to users on repeat visits. This means the application shell is not loaded from the network every time the user visits. Only the necessary content is needed from the network.</em></p>
+  <p><em>The app “shell” is the minimal HTML, CSS and JavaScript required to power the user interface and when cached offline can ensure <strong>instant, reliably good performance</strong> to users on repeat visits. This means the application shell is not loaded from the network every time the user visits. Only the necessary content is needed from the network.</em></p>
 </blockquote>
 <p>Setting up app shell is very similar to caching third party scripts where content is cached based on <code>registerRoute</code>. Again, certain areas of the site have their own strategy for assets, and header and footer <code>html</code> so we wanted to offer the development teams flexibility.</p>
 <p>If a developer wants to register an app shell for a certain domain, they can do the following in configuration:</p>
@@ -205,11 +206,11 @@ workbox.routing.registerRoute(
 <p>This example means when an inbound request comes to <code>https://your-domain.com/sample-route/additional-path</code> will will no longer rely on the initial <code>http</code> request for the <code>html</code> but serve the shell from<code>https://your-domain.com/sample-route</code>.</p>
 <p>To give an example the above configuration would generate the following code:</p>
 <pre><code>const appshell = {  
-  paths: &#39;sample-route\/?$&#39;,    
-  shell: &#39;sample-route&#39;  
+  paths: 'sample-route\/?$',    
+  shell: 'sample-route'  
 };
 
-const staleWhileRevalidate = new strategies.StaleWhileRevalidate({ cacheName: &#39;app-shell-cache&#39;);
+const staleWhileRevalidate = new strategies.StaleWhileRevalidate({ cacheName: 'app-shell-cache');
 
 const shellRegEx = `/${language}-${country}/${shell}`;  
 const pathRegEx = new RegExp(`/${language}-${country}/${path}`);
@@ -229,7 +230,7 @@ routing.registerRoute(
 <p>We introduced a good level of protection through by hashing our assets and most importantly through the introduction of a kill switch within Woz that would generate a new service worker killing the faulty service worker.</p>
 <p>There were some changes in Chrome 68 for enabling <a href="https://developers.google.com/web/updates/2019/09/fresher-sw">fresher service workers</a>:</p>
 <blockquote>
-<p><em>Starting in Chrome 68, HTTP requests that check for updates to the service worker script will no longer be fulfilled by the <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching">HTTP cache</a> by default. This works around a <a href="https://developers.google.com/web/tools/workbox/guides/service-worker-checklist#cache-control_of_your_service_worker_file">common developer pain point</a>, in which setting an inadvertent <code>Cache-Control</code> header on your service worker script could lead to delayed updates.</em></p>
+  <p><em>Starting in Chrome 68, HTTP requests that check for updates to the service worker script will no longer be fulfilled by the <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching">HTTP cache</a> by default. This works around a <a href="https://developers.google.com/web/tools/workbox/guides/service-worker-checklist#cache-control_of_your_service_worker_file">common developer pain point</a>, in which setting an inadvertent <code>Cache-Control</code> header on your service worker script could lead to delayed updates.</em></p>
 </blockquote>
 <p>That made us more confident about reducing the caching of potential regressions, but we also realised that alternatively we could also look into using <a href="https://googlechrome.github.io/samples/service-worker/post-message/">messages from the client side app</a> to a service worker to force an update.</p>
 <p>We wanted to make sure our service was completely dynamic, easy-to-use and transparent for domain-specific developers. In the end we spent more time developing a test suite for Woz than we did creating it (we will cover this in the next article of this series).</p>
@@ -240,22 +241,22 @@ routing.registerRoute(
 <p>If you want to get an early preview you can see it here: <a href="https://www.mrporter.com/en-us/">https://www.mrporter.com/en-us/</a></p>
 <p>In writing Woz, we did a lot of research into different areas of the web stack, these resources really helped us and they might help you too.</p>
 <p><a href="https://web.dev/google-search-sw/"></a></p>
-<h2 id="bringing-service-workers-to-google-search">Bringing service workers to Google Search</h2>
-<h3 id="search-for-just-about-any-topic-on-google-and-youre-presented-with-a-page-of-meaningful-relevant-results-what-you">Search for just about any topic on Google, and you&#39;re presented with a page of meaningful, relevant results. What you…</h3>
+<h2 id="bringingserviceworkerstogooglesearch">Bringing service workers to Google Search</h2>
+<h3 id="searchforjustaboutanytopicongoogleandyourepresentedwithapageofmeaningfulrelevantresultswhatyou">Search for just about any topic on Google, and you're presented with a page of meaningful, relevant results. What you…</h3>
 <p>web.dev</p>
 <p><a href="https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading"></a></p>
-<h2 id="high-performance-service-worker-loading--web-fundamentals">High-performance service worker loading | Web Fundamentals</h2>
-<h3 id="adding-a-service-worker-to-your-web-app-can-offer-significant-performance-benefits-going-beyond-whats-possible-even">Adding a service worker to your web app can offer significant performance benefits, going beyond what&#39;s possible even…</h3>
+<h2 id="highperformanceserviceworkerloadingwebfundamentals">High-performance service worker loading | Web Fundamentals</h2>
+<h3 id="addingaserviceworkertoyourwebappcanoffersignificantperformancebenefitsgoingbeyondwhatspossibleeven">Adding a service worker to your web app can offer significant performance benefits, going beyond what's possible even…</h3>
 <p>developers.google.com</p>
 <p><a href="https://v8.dev/blog/code-caching-for-devs"></a></p>
-<h2 id="code-caching-for-javascript-developers">Code caching for JavaScript developers</h2>
-<h3 id="code-caching-also-known-as-bytecode-caching-is-an-important-optimization-in-browsers-it-reduces-the-start-up-time-of">Code caching (also known as bytecode caching) is an important optimization in browsers. It reduces the start-up time of…</h3>
+<h2 id="codecachingforjavascriptdevelopers">Code caching for JavaScript developers</h2>
+<h3 id="codecachingalsoknownasbytecodecachingisanimportantoptimizationinbrowsersitreducesthestartuptimeof">Code caching (also known as bytecode caching) is an important optimization in browsers. It reduces the start-up time of…</h3>
 <p>v8.dev</p>
 <p><a href="https://v8.dev/blog/cost-of-javascript-2019"></a></p>
-<h2 id="the-cost-of-javascript-in-2019">The cost of JavaScript in 2019</h2>
-<h3 id="note-if-you-prefer-watching-a-presentation-over-reading-articles-then-enjoy-the-video-below-if-not-skip-the-video">Note: If you prefer watching a presentation over reading articles, then enjoy the video below! If not, skip the video…</h3>
+<h2 id="thecostofjavascriptin2019">The cost of JavaScript in 2019</h2>
+<h3 id="noteifyoupreferwatchingapresentationoverreadingarticlesthenenjoythevideobelowifnotskipthevideo">Note: If you prefer watching a presentation over reading articles, then enjoy the video below! If not, skip the video…</h3>
 <p>v8.dev</p>
 <p><a href="https://codelabs.developers.google.com/codelabs/debugging-service-workers/#0"></a></p>
-<h2 id="debugging-service-workers">Debugging Service Workers</h2>
-<h3 id="service-workers-give-developers-the-amazing-ability-to-handle-spotty-networks-and-create-truly-offline-first-web-apps">Service Workers give developers the amazing ability to handle spotty networks and create truly offline-first web apps…</h3>
+<h2 id="debuggingserviceworkers">Debugging Service Workers</h2>
+<h3 id="serviceworkersgivedeveloperstheamazingabilitytohandlespottynetworksandcreatetrulyofflinefirstwebapps">Service Workers give developers the amazing ability to handle spotty networks and create truly offline-first web apps…</h3>
 <p>codelabs.developers.google.com</p>
