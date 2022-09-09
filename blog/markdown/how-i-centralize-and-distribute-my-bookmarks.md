@@ -1,7 +1,4 @@
-﻿
-
-
-# How I centralize and distribute my bookmarks
+﻿# How I centralize and distribute my bookmarks
 
 At a large company there are thousands of different internal URLs, from multiple development environments, workflow tools and HR systems. New tools are often introduced, old ones decommissioned or hostnames changed, I often joked that if I cleared my internet history I wouldn’t be able to do my job.
 

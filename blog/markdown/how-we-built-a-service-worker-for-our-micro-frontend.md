@@ -1,7 +1,4 @@
-﻿
-
-
-# How we built a service worker for our micro-frontend
+﻿# How we built a service worker for our micro-frontend
 
 Over the last year we have been building the new [MR PORTER](https://www.mrporter.com/en-us/) website (currently available in many of our markets) and [THE OUTNET](https://www.theoutnet.com) on our new brand-agnostic [micro-frontend architecture](https://martinfowler.com/articles/micro-frontends.html).
 

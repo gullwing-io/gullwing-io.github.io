@@ -1,6 +1,4 @@
-﻿
-
-# Microservices: Solving a problem like routing - part 1
+﻿# Microservices: Solving a problem like routing - part 1
 
 If you’ve never heard of [YNAP](http://www.ynap.com/), we are an online retailer averaging a billion page-views per month. I work within the In-Season team, we are responsible for both [NET-A-PORTER](https://www.net-a-porter.com) and [Mr Porter](https://www.mrporter.com). Our frontend teams love Microservices, however for all their advantages they have also bought us new challenges.
 

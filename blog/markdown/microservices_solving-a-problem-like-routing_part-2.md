@@ -1,7 +1,4 @@
-﻿
-
-
-# Microservices: Solving a problem like routing — part 2
+﻿# Microservices: Solving a problem like routing — part 2
 
 _This is the second part in a series around how we designed, build and introduced a new routing tier at_ [_YNAP_](http://www.ynap.com/)_,_ [_Part 1 is available here_](https://medium.com/@robinglen/microservices-solving-a-problem-like-routing-part-1-8e48d789e57)_._
 

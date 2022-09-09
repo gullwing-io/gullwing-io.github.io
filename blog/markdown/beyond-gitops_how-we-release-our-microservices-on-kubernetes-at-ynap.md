@@ -1,6 +1,4 @@
 ﻿
-
-
 # Beyond GitOps: How we release our Microservices on Kubernetes at YNAP
 
 In recent posts I have talked about our adoption of Kubernetes, in this post I’m going to talk about how we release our applications into our cluster.
