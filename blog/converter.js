@@ -2,8 +2,6 @@ const {readdirSync, readFileSync, writeFileSync} = require('fs');
 
 const showdown = require('showdown');
 
-//const {marked} = require('marked');
-
 const convertToHTML = new showdown.Converter();
 
 const listOfMarkdownFiles = readdirSync('markdown');

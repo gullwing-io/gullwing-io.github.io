@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "marked": "^4.1.0",
     "showdown": "^2.1.0"
   },
   "description": ""
