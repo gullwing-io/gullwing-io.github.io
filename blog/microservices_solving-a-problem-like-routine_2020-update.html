@@ -3,7 +3,7 @@
       <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title> id="microservicessolvingaproblemlikerouting2020update">Microservices: Solving a problem like routing — 2020 update</title>
+    <title> id&#x3D;&quot;microservicessolvingaproblemlikerouting2020update&quot;&gt;Microservices: Solving a problem like routing — 2020 update</title>
 
 <style>
   :root {
@@ -17,52 +17,49 @@
   .light-red {
     color: var(--light-red);
   }
+
+  
   body {
     box-sizing: content-box;
     max-width: 50%;
     width: 100%;
     height: 100%;
-    margin-left: 25%;
-    margin-right: 25%;
     min-width: 20px;
     padding: 0;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: bold;
   }
 
+  .mainBody{
+    margin-left: 25%;
+  }
+
   body nav{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
     position: sticky; 
     top: 0;
     background: #fff;
   }
-
-  body progress{
-      /* Positioning */
-  position: fixed;
-  left: 0;
-  top: 0;
-
-  /* Dimensions */
-  width: 100%;
-  height: 5px;
-
-  /* Reset the appearance */
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-
-  /* Get rid of the default border in Firefox/Opera. */
-  border: none;
-
-  /* Progress bar container for Firefox/IE10+ */
-  background-color: transparent;
-
-  /* Progress bar value for IE10+ */
-  color: red;
+  
+  .header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: #f1f1f1;
   }
+
+  .progress-container {
+  width: 100%;
+  height: 8px;
+  background: #ccc;
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: #0083c9;
+    width: 0%;
+  }
+
 </style>
 
 
@@ -80,34 +77,37 @@
 </script>
 
 <body>
-  <script>
-  $(document).on('ready',function{
-    var windowHeight = window.innerHeight;
-    const documentBody = document.body;
-    const myHTML = document.documentElement;
-    const documentHeight = Math.max(documentBody.scrollHeight, documentBody.offsetHeight, myHTML.clientHeight, myHTML.scrollHeight, myHTML.offsetHeight);
 
-    progressBar = $('progress'), max, value;
-    var max =documentHeight -windowHeight; 
-    $("progress").attr('max', max);
-  
-    $(document).on('scroll', function(){
-      var value = $(window).scrollTop(); 
-      $("progress").attr('value', value);
-    });
-  });
-  </script>
-  <progress value="0">
 
-  </progress>
-    <nav>
-      <a href="https://www.gullwing.io/">
+
+  <nav>
+    <a href="https://www.gullwing.io/">
       <img src="../img/gullwing-icon.png" alt ="Gullwing Logo" style="width: 100px; height: 100px; margin-left:85%">
-      </a>  
-    </nav>
+    </a>  
+  </nav>
 
-</body>
-<h1 id="microservicessolvingaproblemlikerouting2020update">Microservices: Solving a problem like routing — 2020 update</h1>
+  <div class="header">
+    <div class="progress-container">
+      <div class="progress-bar" id="myBar"></div>
+    </div>  
+  </div>
+
+
+
+  <script>
+    // When the user scrolls the page, execute myFunction 
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("myBar").style.width = scrolled + "%";
+    }
+  </script>
+
+    <div class="mainBody">
+    <h1 id="microservicessolvingaproblemlikerouting2020update">Microservices: Solving a problem like routing — 2020 update</h1>
 <p>Well, where did those last two years go? Apologies for my tardiness, time really got the better of me. The good news is, we’ve had a further two years of production experience, improving performance, catching bugs, adding features and completely changing our infrastructure.</p>
 <p>In the final part of this series I’m going to run a retrospective on Locer (<strong>Loc</strong>alisation, <strong>E</strong>rrors and <strong>R</strong>outing), what went well, what we had to improve and what I would do differently.</p>
 <p>If you have just come into this series I recommend catching up on <a href="https://medium.com/ynap-tech/microservices-solving-a-problem-like-routing-part-1-8e48d789e57">Part 1</a> and <a href="https://medium.com/ynap-tech/microservices-solving-a-problem-like-routing-part-2-e197cdd1863c">Part 2</a> first.</p>
@@ -289,3 +289,6 @@ This would essentially allow Locer to move from an ingress to sidecar for every 
 <p>Since it’s been live, our standards along with the industries standards and demands have changed and Locer in its current incarnation was not built around the service mesh architecture. The thing to remember when writing software is that’s ok, things change and move forward and it’s important to not be too precious or egotistical about code - it solves a problem for that moment in time you need it to and when it’s right to change you should embrace that.</p>
 <p>I can’t say what the future holds for service mesh as a technology but looking at it, moving Locer into a sidecar using WebAssembly does seem the right decision. However the technology is still VERY new, I would like to see the direction it goes in and we do not have a need or requirement to transition as of yet.</p>
 <p>We have a solution for A/B testing without using Istio’s weighted traffic management (Something I will write about soon), so for now, Locer will live on using Node and we couldn’t be happier with it.</p>
+  </div>
+</body>
+

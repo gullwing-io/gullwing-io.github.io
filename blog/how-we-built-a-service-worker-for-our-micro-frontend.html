@@ -3,7 +3,7 @@
       <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title> id="howwebuiltaserviceworkerforourmicrofrontend">How we built a service worker for our micro-frontend</title>
+    <title> id&#x3D;&quot;howwebuiltaserviceworkerforourmicrofrontend&quot;&gt;How we built a service worker for our micro-frontend</title>
 
 <style>
   :root {
@@ -17,52 +17,49 @@
   .light-red {
     color: var(--light-red);
   }
+
+  
   body {
     box-sizing: content-box;
     max-width: 50%;
     width: 100%;
     height: 100%;
-    margin-left: 25%;
-    margin-right: 25%;
     min-width: 20px;
     padding: 0;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: bold;
   }
 
+  .mainBody{
+    margin-left: 25%;
+  }
+
   body nav{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
     position: sticky; 
     top: 0;
     background: #fff;
   }
-
-  body progress{
-      /* Positioning */
-  position: fixed;
-  left: 0;
-  top: 0;
-
-  /* Dimensions */
-  width: 100%;
-  height: 5px;
-
-  /* Reset the appearance */
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-
-  /* Get rid of the default border in Firefox/Opera. */
-  border: none;
-
-  /* Progress bar container for Firefox/IE10+ */
-  background-color: transparent;
-
-  /* Progress bar value for IE10+ */
-  color: red;
+  
+  .header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: #f1f1f1;
   }
+
+  .progress-container {
+  width: 100%;
+  height: 8px;
+  background: #ccc;
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: #0083c9;
+    width: 0%;
+  }
+
 </style>
 
 
@@ -80,34 +77,37 @@
 </script>
 
 <body>
-  <script>
-  $(document).on('ready',function{
-    var windowHeight = window.innerHeight;
-    const documentBody = document.body;
-    const myHTML = document.documentElement;
-    const documentHeight = Math.max(documentBody.scrollHeight, documentBody.offsetHeight, myHTML.clientHeight, myHTML.scrollHeight, myHTML.offsetHeight);
 
-    progressBar = $('progress'), max, value;
-    var max =documentHeight -windowHeight; 
-    $("progress").attr('max', max);
-  
-    $(document).on('scroll', function(){
-      var value = $(window).scrollTop(); 
-      $("progress").attr('value', value);
-    });
-  });
-  </script>
-  <progress value="0">
 
-  </progress>
-    <nav>
-      <a href="https://www.gullwing.io/">
+
+  <nav>
+    <a href="https://www.gullwing.io/">
       <img src="../img/gullwing-icon.png" alt ="Gullwing Logo" style="width: 100px; height: 100px; margin-left:85%">
-      </a>  
-    </nav>
+    </a>  
+  </nav>
 
-</body>
-<h1 id="howwebuiltaserviceworkerforourmicrofrontend">How we built a service worker for our micro-frontend</h1>
+  <div class="header">
+    <div class="progress-container">
+      <div class="progress-bar" id="myBar"></div>
+    </div>  
+  </div>
+
+
+
+  <script>
+    // When the user scrolls the page, execute myFunction 
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("myBar").style.width = scrolled + "%";
+    }
+  </script>
+
+    <div class="mainBody">
+    <h1 id="howwebuiltaserviceworkerforourmicrofrontend">How we built a service worker for our micro-frontend</h1>
 <p>Over the last year we have been building the new <a href="https://www.mrporter.com/en-us/">MR PORTER</a> website (currently available in many of our markets) and <a href="https://www.theoutnet.com">THE OUTNET</a> on our new brand-agnostic <a href="https://martinfowler.com/articles/micro-frontends.html">micro-frontend architecture</a>.</p>
 <p><img src="https://miro.medium.com/max/1400/0*cMSPfkcfEZPzOhGn.png" alt="An overview of our frontend architecture" /><sub>An overview of our frontend architecture, taken from a previous article: <a href="https://medium.com/@robinglen/microservices-solving-a-problem-like-routing-part-1-8e48d789e57">Solving a problem like routing</a>
 </sub>
@@ -369,3 +369,6 @@ routing.registerRoute(
 <h2 id="debuggingserviceworkers">Debugging Service Workers</h2>
 <h3 id="serviceworkersgivedeveloperstheamazingabilitytohandlespottynetworksandcreatetrulyofflinefirstwebapps">Service Workers give developers the amazing ability to handle spotty networks and create truly offline-first web apps…</h3>
 <p>codelabs.developers.google.com</p>
+  </div>
+</body>
+

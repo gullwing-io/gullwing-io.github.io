@@ -3,7 +3,7 @@
       <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title> id="howicentralizeanddistributemybookmarks">How I centralize and distribute my bookmarks</title>
+    <title> id&#x3D;&quot;howicentralizeanddistributemybookmarks&quot;&gt;How I centralize and distribute my bookmarks</title>
 
 <style>
   :root {
@@ -17,52 +17,49 @@
   .light-red {
     color: var(--light-red);
   }
+
+  
   body {
     box-sizing: content-box;
     max-width: 50%;
     width: 100%;
     height: 100%;
-    margin-left: 25%;
-    margin-right: 25%;
     min-width: 20px;
     padding: 0;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: bold;
   }
 
+  .mainBody{
+    margin-left: 25%;
+  }
+
   body nav{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
     position: sticky; 
     top: 0;
     background: #fff;
   }
-
-  body progress{
-      /* Positioning */
-  position: fixed;
-  left: 0;
-  top: 0;
-
-  /* Dimensions */
-  width: 100%;
-  height: 5px;
-
-  /* Reset the appearance */
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-
-  /* Get rid of the default border in Firefox/Opera. */
-  border: none;
-
-  /* Progress bar container for Firefox/IE10+ */
-  background-color: transparent;
-
-  /* Progress bar value for IE10+ */
-  color: red;
+  
+  .header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: #f1f1f1;
   }
+
+  .progress-container {
+  width: 100%;
+  height: 8px;
+  background: #ccc;
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: #0083c9;
+    width: 0%;
+  }
+
 </style>
 
 
@@ -80,34 +77,37 @@
 </script>
 
 <body>
-  <script>
-  $(document).on('ready',function{
-    var windowHeight = window.innerHeight;
-    const documentBody = document.body;
-    const myHTML = document.documentElement;
-    const documentHeight = Math.max(documentBody.scrollHeight, documentBody.offsetHeight, myHTML.clientHeight, myHTML.scrollHeight, myHTML.offsetHeight);
 
-    progressBar = $('progress'), max, value;
-    var max =documentHeight -windowHeight; 
-    $("progress").attr('max', max);
-  
-    $(document).on('scroll', function(){
-      var value = $(window).scrollTop(); 
-      $("progress").attr('value', value);
-    });
-  });
-  </script>
-  <progress value="0">
 
-  </progress>
-    <nav>
-      <a href="https://www.gullwing.io/">
+
+  <nav>
+    <a href="https://www.gullwing.io/">
       <img src="../img/gullwing-icon.png" alt ="Gullwing Logo" style="width: 100px; height: 100px; margin-left:85%">
-      </a>  
-    </nav>
+    </a>  
+  </nav>
 
-</body>
-<h1 id="howicentralizeanddistributemybookmarks">How I centralize and distribute my bookmarks</h1>
+  <div class="header">
+    <div class="progress-container">
+      <div class="progress-bar" id="myBar"></div>
+    </div>  
+  </div>
+
+
+
+  <script>
+    // When the user scrolls the page, execute myFunction 
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("myBar").style.width = scrolled + "%";
+    }
+  </script>
+
+    <div class="mainBody">
+    <h1 id="howicentralizeanddistributemybookmarks">How I centralize and distribute my bookmarks</h1>
 <p>At a large company there are thousands of different internal URLs, from multiple development environments, workflow tools and HR systems. New tools are often introduced, old ones decommissioned or hostnames changed, I often joked that if I cleared my internet history I wouldn’t be able to do my job.</p>
 <p>The only real authority of truth was crowdsourced by asking in Slack what the URL was for a certain service. If you were lucky someone might have already set up a bot to respond, if you were unlucky it might start a flamewar about how bad the latest HR platform was. The idea of crowdsourcing URLs and their authority of truth would run through mind for a while.</p>
 <p>At the start of this year I moved to a start up and while there are a lot less URLs they were still distributed in different tools and not always up-to date. I again started thinking about a way to centralise bookmarks while still allowing you to use your existing tools. Having spent the last few years of my career working in infrastructure there was only one solution in my mind… <code>YAML</code>!</p>
@@ -319,3 +319,6 @@ const sendBookMarks = (folder) =&gt; {
 <h1 id="tryitout">Try it out!</h1>
 <p>The CLI is available on <a href="https://github.com/thearegee/bookworms">Github</a> to export your existing bookmarks, generate bookmark <code>YAML</code>and import them into your browser or project. If you are interested in contributing or maybe you have another idea for how you can use <a href="https://github.com/thearegee/bookworms">Bookworms</a>, you can read more here: <a href="https://github.com/thearegee/bookworms">https://github.com/thearegee/bookworms</a></p>
 <p>Thank you and happy bookmarking!</p>
+  </div>
+</body>
+

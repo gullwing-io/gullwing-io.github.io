@@ -3,7 +3,7 @@
       <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{{title}}}</title>
+    <title>{{title}}</title>
 
 <style>
   :root {
@@ -17,17 +17,21 @@
   .light-red {
     color: var(--light-red);
   }
+
+  
   body {
     box-sizing: content-box;
     max-width: 50%;
     width: 100%;
     height: 100%;
-    margin-left: 25%;
-    margin-right: 25%;
     min-width: 20px;
     padding: 0;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: bold;
+  }
+
+  .mainBody{
+    margin-left: 25%;
   }
 
   body nav{
@@ -35,31 +39,27 @@
     top: 0;
     background: #fff;
   }
-
-  body progress{
-      /* Positioning */
-  position: fixed;
-  left: 0;
-  top: 0;
-
-  /* Dimensions */
-  width: 100%;
-  height: 5px;
-
-  /* Reset the appearance */
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-
-  /* Get rid of the default border in Firefox/Opera. */
-  border: none;
-
-  /* Progress bar container for Firefox/IE10+ */
-  background-color: transparent;
-
-  /* Progress bar value for IE10+ */
-  color: red;
+  
+  .header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: #f1f1f1;
   }
+
+  .progress-container {
+  width: 100%;
+  height: 8px;
+  background: #ccc;
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: #0083c9;
+    width: 0%;
+  }
+
 </style>
 
 
@@ -77,31 +77,37 @@
 </script>
 
 <body>
-  <script>
-  $(document).on('ready',function{
-    var windowHeight = window.innerHeight;
-    const documentBody = document.body;
-    const myHTML = document.documentElement;
-    const documentHeight = Math.max(documentBody.scrollHeight, documentBody.offsetHeight, myHTML.clientHeight, myHTML.scrollHeight, myHTML.offsetHeight);
 
-    progressBar = $('progress'), max, value;
-    var max =documentHeight -windowHeight; 
-    $("progress").attr('max', max);
-  
-    $(document).on('scroll', function(){
-      var value = $(window).scrollTop(); 
-      $("progress").attr('value', value);
-    });
-  });
-  </script>
-  <progress value="0">
 
-  </progress>
-    <nav>
-      <a href="https://www.gullwing.io/">
+
+  <nav>
+    <a href="https://www.gullwing.io/">
       <img src="../img/gullwing-icon.png" alt ="Gullwing Logo" style="width: 100px; height: 100px; margin-left:85%">
-      </a>  
-    </nav>
+    </a>  
+  </nav>
 
+  <div class="header">
+    <div class="progress-container">
+      <div class="progress-bar" id="myBar"></div>
+    </div>  
+  </div>
+
+
+
+  <script>
+    // When the user scrolls the page, execute myFunction 
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("myBar").style.width = scrolled + "%";
+    }
+  </script>
+
+  <div class="mainBody">
+    {{{mainContent}}}
+  </div>
 </body>
-{{{mainContent}}}
+

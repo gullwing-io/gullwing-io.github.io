@@ -3,7 +3,7 @@
       <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title> id="ifdataissoimportantwhyisitsodifficulttoaccesshowibuiltadatawarehousewithoutanyexperience">If data is so important why is it so difficult to access? How I built a data warehouse without any experience</title>
+    <title> id&#x3D;&quot;ifdataissoimportantwhyisitsodifficulttoaccesshowibuiltadatawarehousewithoutanyexperience&quot;&gt;If data is so important why is it so difficult to access? How I built a data warehouse without any experience</title>
 
 <style>
   :root {
@@ -17,52 +17,49 @@
   .light-red {
     color: var(--light-red);
   }
+
+  
   body {
     box-sizing: content-box;
     max-width: 50%;
     width: 100%;
     height: 100%;
-    margin-left: 25%;
-    margin-right: 25%;
     min-width: 20px;
     padding: 0;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: bold;
   }
 
+  .mainBody{
+    margin-left: 25%;
+  }
+
   body nav{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
     position: sticky; 
     top: 0;
     background: #fff;
   }
-
-  body progress{
-      /* Positioning */
-  position: fixed;
-  left: 0;
-  top: 0;
-
-  /* Dimensions */
-  width: 100%;
-  height: 5px;
-
-  /* Reset the appearance */
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-
-  /* Get rid of the default border in Firefox/Opera. */
-  border: none;
-
-  /* Progress bar container for Firefox/IE10+ */
-  background-color: transparent;
-
-  /* Progress bar value for IE10+ */
-  color: red;
+  
+  .header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: #f1f1f1;
   }
+
+  .progress-container {
+  width: 100%;
+  height: 8px;
+  background: #ccc;
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: #0083c9;
+    width: 0%;
+  }
+
 </style>
 
 
@@ -80,34 +77,37 @@
 </script>
 
 <body>
-  <script>
-  $(document).on('ready',function{
-    var windowHeight = window.innerHeight;
-    const documentBody = document.body;
-    const myHTML = document.documentElement;
-    const documentHeight = Math.max(documentBody.scrollHeight, documentBody.offsetHeight, myHTML.clientHeight, myHTML.scrollHeight, myHTML.offsetHeight);
 
-    progressBar = $('progress'), max, value;
-    var max =documentHeight -windowHeight; 
-    $("progress").attr('max', max);
-  
-    $(document).on('scroll', function(){
-      var value = $(window).scrollTop(); 
-      $("progress").attr('value', value);
-    });
-  });
-  </script>
-  <progress value="0">
 
-  </progress>
-    <nav>
-      <a href="https://www.gullwing.io/">
+
+  <nav>
+    <a href="https://www.gullwing.io/">
       <img src="../img/gullwing-icon.png" alt ="Gullwing Logo" style="width: 100px; height: 100px; margin-left:85%">
-      </a>  
-    </nav>
+    </a>  
+  </nav>
 
-</body>
-<h1 id="ifdataissoimportantwhyisitsodifficulttoaccesshowibuiltadatawarehousewithoutanyexperience">If data is so important why is it so difficult to access? How I built a data warehouse without any experience</h1>
+  <div class="header">
+    <div class="progress-container">
+      <div class="progress-bar" id="myBar"></div>
+    </div>  
+  </div>
+
+
+
+  <script>
+    // When the user scrolls the page, execute myFunction 
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("myBar").style.width = scrolled + "%";
+    }
+  </script>
+
+    <div class="mainBody">
+    <h1 id="ifdataissoimportantwhyisitsodifficulttoaccesshowibuiltadatawarehousewithoutanyexperience">If data is so important why is it so difficult to access? How I built a data warehouse without any experience</h1>
 <p>We are constantly told how important data is and how our companies make data driven decisions but in reality, this couldn’t be further from the truth.</p>
 <p>Innovation is about moving quickly, asking questions and proving hypotheses. <strong>E</strong>ngineering, <strong>P</strong>roduct and <strong>B</strong>usiness &amp; <strong>M</strong>arketing (referred to as <strong>EPBM</strong> from now on) all need access to data and insights to do this but it’s not always available. If a company’s data is not democratised answering these questions has to be outsourced to… <em>the</em> <em>datakeepers</em>.</p>
 <h1 id="thedatakeepers">The datakeepers</h1>
@@ -473,3 +473,6 @@ There are many different Business intelligence tools, <a href="https://www.table
 <p>This might look expensive at first and as the company grows so will the cost but I know of data and insight teams spending more than this per week. Also consider the fact this was done by one person, part-time in less than two months. With someone full-time who knew what they were doing I think this could realistically have been completed in a week.</p>
 <p>So far the investment for the company is essentially zero and going forward the infrastructure is the equivalent of one developer’s salary. To get the most out of it I would also look to hire someone even if it’s part time to rewrite my models, model new data and evolve the platform.</p>
 <p>Even with this added cost for me I think it is more than worth it. This architecture allows for data to be democratised while being grown, run and managed by a small team of experts in Looker and data scientists who work directly with <strong>EPBM.</strong> I feel this will encourage innovation, help make data driven decisions and most importantly put an end to the concept of <em>the</em> <em>datakeepers</em>.</p>
+  </div>
+</body>
+

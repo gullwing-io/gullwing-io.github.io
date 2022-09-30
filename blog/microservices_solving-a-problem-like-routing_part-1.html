@@ -3,7 +3,7 @@
       <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title> id="microservicessolvingaproblemlikeroutingpart1">Microservices: Solving a problem like routing - part 1</title>
+    <title> id&#x3D;&quot;microservicessolvingaproblemlikeroutingpart1&quot;&gt;Microservices: Solving a problem like routing - part 1</title>
 
 <style>
   :root {
@@ -17,52 +17,49 @@
   .light-red {
     color: var(--light-red);
   }
+
+  
   body {
     box-sizing: content-box;
     max-width: 50%;
     width: 100%;
     height: 100%;
-    margin-left: 25%;
-    margin-right: 25%;
     min-width: 20px;
     padding: 0;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: bold;
   }
 
+  .mainBody{
+    margin-left: 25%;
+  }
+
   body nav{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
     position: sticky; 
     top: 0;
     background: #fff;
   }
-
-  body progress{
-      /* Positioning */
-  position: fixed;
-  left: 0;
-  top: 0;
-
-  /* Dimensions */
-  width: 100%;
-  height: 5px;
-
-  /* Reset the appearance */
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-
-  /* Get rid of the default border in Firefox/Opera. */
-  border: none;
-
-  /* Progress bar container for Firefox/IE10+ */
-  background-color: transparent;
-
-  /* Progress bar value for IE10+ */
-  color: red;
+  
+  .header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: #f1f1f1;
   }
+
+  .progress-container {
+  width: 100%;
+  height: 8px;
+  background: #ccc;
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: #0083c9;
+    width: 0%;
+  }
+
 </style>
 
 
@@ -80,34 +77,37 @@
 </script>
 
 <body>
-  <script>
-  $(document).on('ready',function{
-    var windowHeight = window.innerHeight;
-    const documentBody = document.body;
-    const myHTML = document.documentElement;
-    const documentHeight = Math.max(documentBody.scrollHeight, documentBody.offsetHeight, myHTML.clientHeight, myHTML.scrollHeight, myHTML.offsetHeight);
 
-    progressBar = $('progress'), max, value;
-    var max =documentHeight -windowHeight; 
-    $("progress").attr('max', max);
-  
-    $(document).on('scroll', function(){
-      var value = $(window).scrollTop(); 
-      $("progress").attr('value', value);
-    });
-  });
-  </script>
-  <progress value="0">
 
-  </progress>
-    <nav>
-      <a href="https://www.gullwing.io/">
+
+  <nav>
+    <a href="https://www.gullwing.io/">
       <img src="../img/gullwing-icon.png" alt ="Gullwing Logo" style="width: 100px; height: 100px; margin-left:85%">
-      </a>  
-    </nav>
+    </a>  
+  </nav>
 
-</body>
-<h1 id="microservicessolvingaproblemlikeroutingpart1">Microservices: Solving a problem like routing - part 1</h1>
+  <div class="header">
+    <div class="progress-container">
+      <div class="progress-bar" id="myBar"></div>
+    </div>  
+  </div>
+
+
+
+  <script>
+    // When the user scrolls the page, execute myFunction 
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("myBar").style.width = scrolled + "%";
+    }
+  </script>
+
+    <div class="mainBody">
+    <h1 id="microservicessolvingaproblemlikeroutingpart1">Microservices: Solving a problem like routing - part 1</h1>
 <p>If you’ve never heard of <a href="http://www.ynap.com/">YNAP</a>, we are an online retailer averaging a billion page-views per month. I work within the In-Season team, we are responsible for both <a href="https://www.net-a-porter.com">NET-A-PORTER</a> and <a href="https://www.mrporter.com">Mr Porter</a>. Our frontend teams love Microservices, however for all their advantages they have also bought us new challenges.</p>
 <p>The one I want to talk about today, is how we route a request to the correct frontend application. Before talking about where we are, I think it’s important to explain how our architecture has evolved.</p>
 <h1 id="alittlebitofhistory">A little bit of history…</h1>
@@ -169,3 +169,6 @@ We set about designing a new system hoping to eliminate some of the complexity o
 <p>But even with all these advantages, we had concerns with the design, it went against one of our clear principles for Microservices, no single point of failure.</p>
 <p>In the next part of this series, we will be looking at how we went about making a technology choice to mitigate this concern. From evaluating platforms and languages, building POCs and load testing them to make sure they fitted our requirements.</p>
 <p>All of this will be covered in <a href="https://medium.com/@robinglen/microservices-solving-a-problem-like-routing-part-2-e197cdd1863c">part 2</a>.</p>
+  </div>
+</body>
+
