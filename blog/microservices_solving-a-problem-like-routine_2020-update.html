@@ -21,21 +21,22 @@
   
   body {
     box-sizing: content-box;
-    max-width: 50%;
     width: 100%;
     height: 100%;
-    min-width: 20px;
     padding: 0;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: bold;
   }
 
-  .mainBody{
+
+  body .mainBody{
     margin-left: 25%;
+    margin-right: 25%;
   }
 
   body nav{
     position: sticky; 
+    width: 100%;
     top: 0;
     background: #fff;
   }
@@ -45,7 +46,7 @@
     top: 0;
     z-index: 1;
     width: 100%;
-    background-color: #f1f1f1;
+    background-color: #fff;
   }
 
   .progress-container {
@@ -82,7 +83,7 @@
 
   <nav>
     <a href="https://www.gullwing.io/">
-      <img src="../img/gullwing-icon.png" alt ="Gullwing Logo" style="width: 100px; height: 100px; margin-left:85%">
+      <img src="../img/gullwing-icon.png" alt ="Gullwing Logo" style="width: 100px; height: 100px; margin-left:90%">
     </a>  
   </nav>
 
@@ -106,7 +107,7 @@
     }
   </script>
 
-    <div class="mainBody">
+  <div class="mainBody">
     <h1 id="microservicessolvingaproblemlikerouting2020update">Microservices: Solving a problem like routing — 2020 update</h1>
 <p>Well, where did those last two years go? Apologies for my tardiness, time really got the better of me. The good news is, we’ve had a further two years of production experience, improving performance, catching bugs, adding features and completely changing our infrastructure.</p>
 <p>In the final part of this series I’m going to run a retrospective on Locer (<strong>Loc</strong>alisation, <strong>E</strong>rrors and <strong>R</strong>outing), what went well, what we had to improve and what I would do differently.</p>

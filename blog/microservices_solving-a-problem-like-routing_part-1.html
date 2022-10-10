@@ -21,21 +21,22 @@
   
   body {
     box-sizing: content-box;
-    max-width: 50%;
     width: 100%;
     height: 100%;
-    min-width: 20px;
     padding: 0;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: bold;
   }
 
-  .mainBody{
+
+  body .mainBody{
     margin-left: 25%;
+    margin-right: 25%;
   }
 
   body nav{
     position: sticky; 
+    width: 100%;
     top: 0;
     background: #fff;
   }
@@ -45,7 +46,7 @@
     top: 0;
     z-index: 1;
     width: 100%;
-    background-color: #f1f1f1;
+    background-color: #fff;
   }
 
   .progress-container {
@@ -82,7 +83,7 @@
 
   <nav>
     <a href="https://www.gullwing.io/">
-      <img src="../img/gullwing-icon.png" alt ="Gullwing Logo" style="width: 100px; height: 100px; margin-left:85%">
+      <img src="../img/gullwing-icon.png" alt ="Gullwing Logo" style="width: 100px; height: 100px; margin-left:90%">
     </a>  
   </nav>
 
@@ -106,7 +107,7 @@
     }
   </script>
 
-    <div class="mainBody">
+  <div class="mainBody">
     <h1 id="microservicessolvingaproblemlikeroutingpart1">Microservices: Solving a problem like routing - part 1</h1>
 <p>If you’ve never heard of <a href="http://www.ynap.com/">YNAP</a>, we are an online retailer averaging a billion page-views per month. I work within the In-Season team, we are responsible for both <a href="https://www.net-a-porter.com">NET-A-PORTER</a> and <a href="https://www.mrporter.com">Mr Porter</a>. Our frontend teams love Microservices, however for all their advantages they have also bought us new challenges.</p>
 <p>The one I want to talk about today, is how we route a request to the correct frontend application. Before talking about where we are, I think it’s important to explain how our architecture has evolved.</p>

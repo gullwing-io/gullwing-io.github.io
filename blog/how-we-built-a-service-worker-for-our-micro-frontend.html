@@ -21,21 +21,22 @@
   
   body {
     box-sizing: content-box;
-    max-width: 50%;
     width: 100%;
     height: 100%;
-    min-width: 20px;
     padding: 0;
     font-family: "Helvetica Neue", sans-serif;
     font-weight: bold;
   }
 
-  .mainBody{
+
+  body .mainBody{
     margin-left: 25%;
+    margin-right: 25%;
   }
 
   body nav{
     position: sticky; 
+    width: 100%;
     top: 0;
     background: #fff;
   }
@@ -45,7 +46,7 @@
     top: 0;
     z-index: 1;
     width: 100%;
-    background-color: #f1f1f1;
+    background-color: #fff;
   }
 
   .progress-container {
@@ -82,7 +83,7 @@
 
   <nav>
     <a href="https://www.gullwing.io/">
-      <img src="../img/gullwing-icon.png" alt ="Gullwing Logo" style="width: 100px; height: 100px; margin-left:85%">
+      <img src="../img/gullwing-icon.png" alt ="Gullwing Logo" style="width: 100px; height: 100px; margin-left:90%">
     </a>  
   </nav>
 
@@ -106,7 +107,7 @@
     }
   </script>
 
-    <div class="mainBody">
+  <div class="mainBody">
     <h1 id="howwebuiltaserviceworkerforourmicrofrontend">How we built a service worker for our micro-frontend</h1>
 <p>Over the last year we have been building the new <a href="https://www.mrporter.com/en-us/">MR PORTER</a> website (currently available in many of our markets) and <a href="https://www.theoutnet.com">THE OUTNET</a> on our new brand-agnostic <a href="https://martinfowler.com/articles/micro-frontends.html">micro-frontend architecture</a>.</p>
 <p><img src="https://miro.medium.com/max/1400/0*cMSPfkcfEZPzOhGn.png" alt="An overview of our frontend architecture" /><sub>An overview of our frontend architecture, taken from a previous article: <a href="https://medium.com/@robinglen/microservices-solving-a-problem-like-routing-part-1-8e48d789e57">Solving a problem like routing</a>
