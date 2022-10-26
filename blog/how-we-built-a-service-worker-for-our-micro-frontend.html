@@ -4,70 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title> id&#x3D;&quot;howwebuiltaserviceworkerforourmicrofrontend&quot;&gt;How we built a service worker for our micro-frontend</title>
-
-<style>
-  :root {
-    --primary-blue: #0083c9;
-    --primary-white: #fff;
-    --primary-red: #df5738;
-    --dark-blue: #1065a3;
-    --light-red: #e85f40;
-  }
-
-  .light-red {
-    color: var(--light-red);
-  }
-
-  
-  body {
-    box-sizing: content-box;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    font-family: "Helvetica Neue", sans-serif;
-    font-weight: bold;
-  }
-
-
-  body .mainBody{
-    margin-left: 25%;
-    margin-right: 25%;
-  }
-
-  body nav{
-    position: sticky; 
-    width: 100%;
-    top: 0;
-    background: #fff;
-  }
-  
-  .header {
-    position: fixed;
-    top: 0;
-    z-index: 1;
-    width: 100%;
-    background-color: #fff;
-  }
-
-  .progress-container {
-  width: 100%;
-  height: 8px;
-  background: #ccc;
-  }
-
-  .progress-bar {
-    height: 8px;
-    background: #0083c9;
-    width: 0%;
-  }
-
-</style>
-
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type = "image/png" href="../img/gullwing-icon.png" />
 
 <script
   async
-  src="https://www.googletagmanager.com/gtag/js?id=G-BGXW90V3SE"
-></script>
+  src="https://www.googletagmanager.com/gtag/js?id=G-BGXW90V3SE">
+</script>
+
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag() {
@@ -77,23 +21,9 @@
   gtag("config", "G-BGXW90V3SE");
 </script>
 
+</head>
+
 <body>
-
-
-
-  <nav>
-    <a href="https://www.gullwing.io/">
-      <img src="../img/gullwing-icon.png" alt ="Gullwing Logo" style="width: 100px; height: 100px; margin-left:90%">
-    </a>  
-  </nav>
-
-  <div class="header">
-    <div class="progress-container">
-      <div class="progress-bar" id="myBar"></div>
-    </div>  
-  </div>
-
-
 
   <script>
     // When the user scrolls the page, execute myFunction 
@@ -106,6 +36,22 @@
       document.getElementById("myBar").style.width = scrolled + "%";
     }
   </script>
+
+
+  <nav>
+    <a href="https://www.gullwing.io/">
+      <img id="headerImage" src="../img/gullwing-logo.png" alt ="Gullwing Logo" style="width: 50px; height: 60px; margin-left:50%">
+    </a>  
+  </nav>
+
+  <div class="header">
+    <div class="progress-container">
+      <div class="progress-bar" id="myBar"></div>
+    </div>  
+  </div>
+
+
+
 
   <div class="mainBody">
     <h1 id="howwebuiltaserviceworkerforourmicrofrontend">How we built a service worker for our micro-frontend</h1>
