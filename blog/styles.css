@@ -53,6 +53,13 @@ body nav{
   margin-left:47%;
 }
 
+#index-image{
+  margin: 0px;
+  width: 50px;
+  height: 60px;
+  margin-left: 3%;
+}
+
 img {
 margin: 10px;
 }
