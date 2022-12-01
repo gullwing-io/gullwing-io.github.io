@@ -17,29 +17,13 @@ listOfMarkdownFiles.forEach(file=>{
     const readableFile = (fileContent.replace('﻿#', '#'));
     //pass the file through the converter
     const newHTMLFile = convertToHTML.makeHtml(readableFile);
-    //separate title from body
-    const jsHeaderStart = '<h1';
-    const jsHeaderEnd = '</h1';
-    const titleStart = newHTMLFile.search(jsHeaderStart);
-    const titleEnd = newHTMLFile.search(jsHeaderEnd);
-    var titleFull = newHTMLFile.substring(titleStart, titleEnd);
-    //remove the header formatting
-    titleFull = titleFull.replace(jsHeaderStart, '');
-    titleFull = titleFull.replace(jsHeaderEnd, '');
-    //while this has removed some of the issue there's an id tag attached to the title
-    const titleIdTag = titleFull.search('">');
-    titleFull = titleFull.substring(titleIdTag);
-    titleFull = titleFull.replace('">', '');
-    console.log(titleFull);
-    //find the first image in the file
-    const firstImageLocationStart = newHTMLFile.indexOf('<img src=');
-    //since '<img src="' is ten characters the url of our first image is the previous index +10
-    var firstImage = newHTMLFile.substring(firstImageLocationStart+10);
-    //now having cut everything up until this point the first index of " will be the end of the image url
-    const firstImageLocationEnd = firstImage.indexOf('"');
-    firstImage = firstImage.substring(0, firstImageLocationEnd);
-    //now we have to retrieve the text without the html tags for our description
     const $ = cheerio.load(newHTMLFile);
+    //use cheerio to find the title and image
+    const cheerioTitle = $('h1').first().text();
+    const cheerioImage = $('img').first().attr('src');
+    console.log(cheerioImage);
+    //now we have to retrieve the text without the html tags for our description
+
     //take the raw text in the paragraphs
     var rawDescription = $('p').text();
     //take the first 100 words
@@ -54,7 +38,7 @@ listOfMarkdownFiles.forEach(file=>{
     //add an ellipses at the end
     rawDescription = rawDescription.concat('...');
     //pass all the relevant parameters into the template
-    const handlebarsInput = {title: titleFull, mainContent: newHTMLFile, description: rawDescription, image: firstImage};
+    const handlebarsInput = {title: cheerioTitle, mainContent: newHTMLFile, description: rawDescription, image: cheerioImage};
 
 
     //apply template
@@ -66,4 +50,4 @@ listOfMarkdownFiles.forEach(file=>{
 const list = readFileSync('list.html', 'utf8');
 const listHandlebarsInput = {title: 'Article List', mainContent:list};
 const templatedList = template(listHandlebarsInput);
-writeFileSync('templatedlist.html', templatedList);
+writeFileSync('templated-list.html', templatedList);
