@@ -1,4 +1,67 @@
-<h1 id="microservicessolvingaproblemlikerouting2020update">Microservices: Solving a problem like routing — 2020 update</h1>
+<!DOCTYPE html>
+<html lang="en">
+      <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Microservices: Solving a problem like routing — 2020 update</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type = "image/png" href="../img/gullwing-icon.png" />
+
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-BGXW90V3SE">
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-BGXW90V3SE");
+</script>
+<meta property="og:title" content="Microservices: Solving a problem like routing — 2020 update" />
+<meta property="og:description" content="Well, where did those last two years go? Apologies for my tardiness, time really got the better of me. The good news is, we’ve had a further two years of production experience, improving performance, catching bugs, adding features and completely changing our infrastructure.In the final part of this series I’m going to run a retrospective on Locer (Localisation, Errors and Routing), what went well, what we had to improve and what I would do differently.If you have just come into this series I recommend catching up on Part 1 and Part 2 first.Locer is now routing frontend requests for the..." />
+<meta property="og:image" content="https://miro.medium.com/max/700/1*Qin2XUn7ETCF4RLgYQL4_A.png" />
+</head>
+
+<body>
+
+  <script>
+    // When the user scrolls the page, execute myFunction 
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("headerBar").style.width = scrolled + "%";
+    }
+  </script>
+
+<div class="page-banner">
+  <nav>
+    
+    <a href="templated-list.html">
+      <img id="index-image" src="../img/gullwing-logo.png" alt ="Gullwing Logo">
+    </a>
+    
+    <a href="https://www.gullwing.io/">
+      <img id="header-image" src="../img/gullwing-logo.png" alt ="Gullwing Logo">
+    </a>  
+  </nav>
+
+  <div class="header">
+    <div class="progress-container">
+      <div class="progress-bar" id="headerBar"></div>
+    </div>  
+  </div>
+</div>
+
+
+
+  <div class="mainBody">
+    <h1 id="microservicessolvingaproblemlikerouting2020update">Microservices: Solving a problem like routing — 2020 update</h1>
 <p>Well, where did those last two years go? Apologies for my tardiness, time really got the better of me. The good news is, we’ve had a further two years of production experience, improving performance, catching bugs, adding features and completely changing our infrastructure.</p>
 <p>In the final part of this series I’m going to run a retrospective on Locer (<strong>Loc</strong>alisation, <strong>E</strong>rrors and <strong>R</strong>outing), what went well, what we had to improve and what I would do differently.</p>
 <p>If you have just come into this series I recommend catching up on <a href="https://medium.com/ynap-tech/microservices-solving-a-problem-like-routing-part-1-8e48d789e57">Part 1</a> and <a href="https://medium.com/ynap-tech/microservices-solving-a-problem-like-routing-part-2-e197cdd1863c">Part 2</a> first.</p>
@@ -180,3 +243,6 @@ This would essentially allow Locer to move from an ingress to sidecar for every 
 <p>Since it’s been live, our standards along with the industries standards and demands have changed and Locer in its current incarnation was not built around the service mesh architecture. The thing to remember when writing software is that’s ok, things change and move forward and it’s important to not be too precious or egotistical about code - it solves a problem for that moment in time you need it to and when it’s right to change you should embrace that.</p>
 <p>I can’t say what the future holds for service mesh as a technology but looking at it, moving Locer into a sidecar using WebAssembly does seem the right decision. However the technology is still VERY new, I would like to see the direction it goes in and we do not have a need or requirement to transition as of yet.</p>
 <p>We have a solution for A/B testing without using Istio’s weighted traffic management (Something I will write about soon), so for now, Locer will live on using Node and we couldn’t be happier with it.</p>
+  </div>
+</body>
+

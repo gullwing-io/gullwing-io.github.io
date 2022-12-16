@@ -1,0 +1,86 @@
+a{
+  color: var(--primary-blue);
+}
+
+:root {
+    --primary-blue: #0083c9;
+    --primary-white: #fff;
+    --primary-red: #df5738;
+    --dark-blue: #1065a3;
+    --light-red: #e85f40;
+}
+
+.light-red {
+    color: var(--light-red);
+}
+
+body {
+   box-sizing: content-box;
+   width: 100%;
+  height: 100%;
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight: normal;
+}
+
+
+body .mainBody{
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 100px;
+}
+
+body nav{
+  left: 0px;
+  position: fixed; 
+  width: 100%;
+  top: 0;
+  background: var(--primary-blue);
+  padding: 10px 0 10px 0;
+}
+  
+.header {
+  left: 0px;
+  position: fixed;
+  top: 76px;
+  z-index: 1;
+  width: 100%;
+  background-color: var(--primary-white);
+}
+
+#header-image {
+  margin: 0px;
+  width: 50px;
+  height: 60px;
+  margin-left:47%;
+}
+
+#index-image{
+  margin: 0px;
+  width: 50px;
+  height: 60px;
+  margin-left: 3%;
+}
+
+img {
+margin: 10px;
+width:100%;
+}
+
+.progress-container {
+  left: 0px;
+  width: 100%;
+  height: 8px;
+  background: var(--primary-white);
+}
+
+.progress-bar {
+  left: 0px;
+  height: 8px;
+  background: var(--primary-red);
+  width: 0%;
+}
+
+.page-banner{
+  width: auto;
+  height: auto;
+}

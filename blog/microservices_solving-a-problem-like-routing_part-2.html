@@ -1,4 +1,67 @@
-<h1 id="microservicessolvingaproblemlikeroutingpart2">Microservices: Solving a problem like routing — part 2</h1>
+<!DOCTYPE html>
+<html lang="en">
+      <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Microservices: Solving a problem like routing — part 2</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type = "image/png" href="../img/gullwing-icon.png" />
+
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-BGXW90V3SE">
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-BGXW90V3SE");
+</script>
+<meta property="og:title" content="Microservices: Solving a problem like routing — part 2" />
+<meta property="og:description" content="This is the second part in a series around how we designed, build and introduced a new routing tier at YNAP, Part 1 is available here. We knew what we wanted to build now we needed to make sure, whatever we did, this new application could handle our peak traffic on sale.First we looked into a couple of available options:Although all looked great and worth a look if you have a similar issue, they didn’t quite match our requirements. There was a lot of features we didn’t need or didn’t need yet, we wanted to keep the service small and very..." />
+<meta property="og:image" content="https://miro.medium.com/max/1090/1*CCr9iFEQCjEekfc-Cp7RXQ.png" />
+</head>
+
+<body>
+
+  <script>
+    // When the user scrolls the page, execute myFunction 
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("headerBar").style.width = scrolled + "%";
+    }
+  </script>
+
+<div class="page-banner">
+  <nav>
+    
+    <a href="templated-list.html">
+      <img id="index-image" src="../img/gullwing-logo.png" alt ="Gullwing Logo">
+    </a>
+    
+    <a href="https://www.gullwing.io/">
+      <img id="header-image" src="../img/gullwing-logo.png" alt ="Gullwing Logo">
+    </a>  
+  </nav>
+
+  <div class="header">
+    <div class="progress-container">
+      <div class="progress-bar" id="headerBar"></div>
+    </div>  
+  </div>
+</div>
+
+
+
+  <div class="mainBody">
+    <h1 id="microservicessolvingaproblemlikeroutingpart2">Microservices: Solving a problem like routing — part 2</h1>
 <p><em>This is the second part in a series around how we designed, build and introduced a new routing tier at</em> <a href="http://www.ynap.com/"><em>YNAP</em></a><em>,</em> <a href="https://medium.com/@robinglen/microservices-solving-a-problem-like-routing-part-1-8e48d789e57"><em>Part 1 is available here</em></a><em>.</em></p>
 <h2 id="doingourhomework">Doing our homework</h2>
 <p>We knew what we wanted to build now we needed to make sure, whatever we did, this new application could handle our peak traffic on sale.</p>
@@ -171,3 +234,6 @@ Location: http:localhost:8080/en-gb/my-web-page
 <p>Our main concern was introducing a single point of failure and a performance bottleneck. While there is now an application sitting infront of our Microservices after testing our POCs we were happy it could handle the load. We can also run multiple instances to protect us incase one was to go down, and also include aggressive autoscalling rules to add more if we need it.</p>
 <p>With the design complete, a simple POCs tested, a technology selected and eliminated our fears, we could now move on to building the actual solution.</p>
 <p>In the <a href="https://medium.com/ynap-tech/microservices-solving-a-problem-like-routing-2020-update-e623adcc3fc1">final part of the series</a> we will be starting to build the application, looking into some code, deploying it into the wild and monitoring its performance.</p>
+  </div>
+</body>
+

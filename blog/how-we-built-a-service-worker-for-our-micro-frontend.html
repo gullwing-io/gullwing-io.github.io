@@ -1,4 +1,69 @@
-<h1 id="howwebuiltaserviceworkerforourmicrofrontend">How we built a service worker for our micro-frontend</h1>
+<!DOCTYPE html>
+<html lang="en">
+      <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How we built a service worker for our micro-frontend</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type = "image/png" href="../img/gullwing-icon.png" />
+
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-BGXW90V3SE">
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-BGXW90V3SE");
+</script>
+<meta property="og:title" content="How we built a service worker for our micro-frontend" />
+<meta property="og:description" content="Over the last year we have been building the new MR PORTER website (currently available in many of our markets) and THE OUTNET on our new brand-agnostic micro-frontend architecture. An overview of our frontend architecture, taken from a previous article: Solving a problem like routing
+
+Although we had not done a complete discovery phase around Progressive Web Apps we knew service worker offered us features we could rollout iteratively.We started with the goal to use service worker to improve our performance metrics. We would do this in multiple ways:If we were going to implement a service worker we had some key business..." />
+<meta property="og:image" content="https://miro.medium.com/max/1400/0*cMSPfkcfEZPzOhGn.png" />
+</head>
+
+<body>
+
+  <script>
+    // When the user scrolls the page, execute myFunction 
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("headerBar").style.width = scrolled + "%";
+    }
+  </script>
+
+<div class="page-banner">
+  <nav>
+    
+    <a href="templated-list.html">
+      <img id="index-image" src="../img/gullwing-logo.png" alt ="Gullwing Logo">
+    </a>
+    
+    <a href="https://www.gullwing.io/">
+      <img id="header-image" src="../img/gullwing-logo.png" alt ="Gullwing Logo">
+    </a>  
+  </nav>
+
+  <div class="header">
+    <div class="progress-container">
+      <div class="progress-bar" id="headerBar"></div>
+    </div>  
+  </div>
+</div>
+
+
+
+  <div class="mainBody">
+    <h1 id="howwebuiltaserviceworkerforourmicrofrontend">How we built a service worker for our micro-frontend</h1>
 <p>Over the last year we have been building the new <a href="https://www.mrporter.com/en-us/">MR PORTER</a> website (currently available in many of our markets) and <a href="https://www.theoutnet.com">THE OUTNET</a> on our new brand-agnostic <a href="https://martinfowler.com/articles/micro-frontends.html">micro-frontend architecture</a>.</p>
 <p><img src="https://miro.medium.com/max/1400/0*cMSPfkcfEZPzOhGn.png" alt="An overview of our frontend architecture" /><sub>An overview of our frontend architecture, taken from a previous article: <a href="https://medium.com/@robinglen/microservices-solving-a-problem-like-routing-part-1-8e48d789e57">Solving a problem like routing</a>
 </sub>
@@ -260,3 +325,6 @@ routing.registerRoute(
 <h2 id="debuggingserviceworkers">Debugging Service Workers</h2>
 <h3 id="serviceworkersgivedeveloperstheamazingabilitytohandlespottynetworksandcreatetrulyofflinefirstwebapps">Service Workers give developers the amazing ability to handle spotty networks and create truly offline-first web apps…</h3>
 <p>codelabs.developers.google.com</p>
+  </div>
+</body>
+
