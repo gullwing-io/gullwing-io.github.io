@@ -26,6 +26,7 @@ body {
 body .mainBody{
   margin-left: 25%;
   margin-right: 25%;
+  margin-top: 100px;
 }
 
 body nav{
@@ -62,6 +63,7 @@ body nav{
 
 img {
 margin: 10px;
+width:100%;
 }
 
 .progress-container {

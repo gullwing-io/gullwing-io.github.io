@@ -48,6 +48,6 @@ listOfMarkdownFiles.forEach(file=>{
     writeFileSync(file.replace('.md', '.html'), templatedFile);
 });
 const list = readFileSync('list.html', 'utf8');
-const listHandlebarsInput = {title: 'Article List', mainContent:list};
+const listHandlebarsInput = {title: 'Article List', mainContent:list, description: "List of articles on Gullwing.io", image: '../img/gullwing-avatar.png' };
 const templatedList = template(listHandlebarsInput);
 writeFileSync('templated-list.html', templatedList);
