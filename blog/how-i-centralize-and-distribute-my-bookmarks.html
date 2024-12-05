@@ -1,4 +1,67 @@
-<h1 id="howicentralizeanddistributemybookmarks">How I centralize and distribute my bookmarks</h1>
+<!DOCTYPE html>
+<html lang="en">
+      <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How I centralize and distribute my bookmarks</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type = "image/png" href="../img/gullwing-icon.png" />
+
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-BGXW90V3SE">
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-BGXW90V3SE");
+</script>
+<meta property="og:title" content="How I centralize and distribute my bookmarks" />
+<meta property="og:description" content="At a large company there are thousands of different internal URLs, from multiple development environments, workflow tools and HR systems. New tools are often introduced, old ones decommissioned or hostnames changed, I often joked that if I cleared my internet history I wouldn’t be able to do my job.The only real authority of truth was crowdsourced by asking in Slack what the URL was for a certain service. If you were lucky someone might have already set up a bot to respond, if you were unlucky it might start a flamewar about how bad the latest HR platform was. The..." />
+<meta property="og:image" content="https://miro.medium.com/max/1400/1*2VE46SJAwK2j50DpQkzejw.png" />
+</head>
+
+<body>
+
+  <script>
+    // When the user scrolls the page, execute myFunction 
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("headerBar").style.width = scrolled + "%";
+    }
+  </script>
+
+<div class="page-banner">
+  <nav>
+    
+    <a href="templated-list.html">
+      <img id="index-image" src="../img/gullwing-logo.png" alt ="Gullwing Logo">
+    </a>
+    
+    <a href="https://www.gullwing.io/">
+      <img id="header-image" src="../img/gullwing-logo.png" alt ="Gullwing Logo">
+    </a>  
+  </nav>
+
+  <div class="header">
+    <div class="progress-container">
+      <div class="progress-bar" id="headerBar"></div>
+    </div>  
+  </div>
+</div>
+
+
+
+  <div class="mainBody">
+    <h1 id="howicentralizeanddistributemybookmarks">How I centralize and distribute my bookmarks</h1>
 <p>At a large company there are thousands of different internal URLs, from multiple development environments, workflow tools and HR systems. New tools are often introduced, old ones decommissioned or hostnames changed, I often joked that if I cleared my internet history I wouldn’t be able to do my job.</p>
 <p>The only real authority of truth was crowdsourced by asking in Slack what the URL was for a certain service. If you were lucky someone might have already set up a bot to respond, if you were unlucky it might start a flamewar about how bad the latest HR platform was. The idea of crowdsourcing URLs and their authority of truth would run through mind for a while.</p>
 <p>At the start of this year I moved to a start up and while there are a lot less URLs they were still distributed in different tools and not always up-to date. I again started thinking about a way to centralise bookmarks while still allowing you to use your existing tools. Having spent the last few years of my career working in infrastructure there was only one solution in my mind… <code>YAML</code>!</p>
@@ -210,3 +273,6 @@ const sendBookMarks = (folder) =&gt; {
 <h1 id="tryitout">Try it out!</h1>
 <p>The CLI is available on <a href="https://github.com/thearegee/bookworms">Github</a> to export your existing bookmarks, generate bookmark <code>YAML</code>and import them into your browser or project. If you are interested in contributing or maybe you have another idea for how you can use <a href="https://github.com/thearegee/bookworms">Bookworms</a>, you can read more here: <a href="https://github.com/thearegee/bookworms">https://github.com/thearegee/bookworms</a></p>
 <p>Thank you and happy bookmarking!</p>
+  </div>
+</body>
+

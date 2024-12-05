@@ -1,4 +1,67 @@
-<h1 id="microservicessolvingaproblemlikeroutingpart1">Microservices: Solving a problem like routing - part 1</h1>
+<!DOCTYPE html>
+<html lang="en">
+      <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Microservices: Solving a problem like routing - part 1</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type = "image/png" href="../img/gullwing-icon.png" />
+
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-BGXW90V3SE">
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-BGXW90V3SE");
+</script>
+<meta property="og:title" content="Microservices: Solving a problem like routing - part 1" />
+<meta property="og:description" content="If you’ve never heard of YNAP, we are an online retailer averaging a billion page-views per month. I work within the In-Season team, we are responsible for both NET-A-PORTER and Mr Porter. Our frontend teams love Microservices, however for all their advantages they have also bought us new challenges.The one I want to talk about today, is how we route a request to the correct frontend application. Before talking about where we are, I think it’s important to explain how our architecture has evolved.When I joined NET-A-PORTER, our brother brand Mr Porter didn’t exist and our website architecture was fairly..." />
+<meta property="og:image" content="https://miro.medium.com/max/1400/1*dipIIwQ6UcUJdc2BvKHSoA.png" />
+</head>
+
+<body>
+
+  <script>
+    // When the user scrolls the page, execute myFunction 
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("headerBar").style.width = scrolled + "%";
+    }
+  </script>
+
+<div class="page-banner">
+  <nav>
+    
+    <a href="templated-list.html">
+      <img id="index-image" src="../img/gullwing-logo.png" alt ="Gullwing Logo">
+    </a>
+    
+    <a href="https://www.gullwing.io/">
+      <img id="header-image" src="../img/gullwing-logo.png" alt ="Gullwing Logo">
+    </a>  
+  </nav>
+
+  <div class="header">
+    <div class="progress-container">
+      <div class="progress-bar" id="headerBar"></div>
+    </div>  
+  </div>
+</div>
+
+
+
+  <div class="mainBody">
+    <h1 id="microservicessolvingaproblemlikeroutingpart1">Microservices: Solving a problem like routing - part 1</h1>
 <p>If you’ve never heard of <a href="http://www.ynap.com/">YNAP</a>, we are an online retailer averaging a billion page-views per month. I work within the In-Season team, we are responsible for both <a href="https://www.net-a-porter.com">NET-A-PORTER</a> and <a href="https://www.mrporter.com">Mr Porter</a>. Our frontend teams love Microservices, however for all their advantages they have also bought us new challenges.</p>
 <p>The one I want to talk about today, is how we route a request to the correct frontend application. Before talking about where we are, I think it’s important to explain how our architecture has evolved.</p>
 <h1 id="alittlebitofhistory">A little bit of history…</h1>
@@ -60,3 +123,6 @@ We set about designing a new system hoping to eliminate some of the complexity o
 <p>But even with all these advantages, we had concerns with the design, it went against one of our clear principles for Microservices, no single point of failure.</p>
 <p>In the next part of this series, we will be looking at how we went about making a technology choice to mitigate this concern. From evaluating platforms and languages, building POCs and load testing them to make sure they fitted our requirements.</p>
 <p>All of this will be covered in <a href="https://medium.com/@robinglen/microservices-solving-a-problem-like-routing-part-2-e197cdd1863c">part 2</a>.</p>
+  </div>
+</body>
+

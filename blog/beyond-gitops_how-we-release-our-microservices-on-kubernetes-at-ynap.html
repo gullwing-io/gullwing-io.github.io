@@ -1,4 +1,67 @@
-<h1 id="beyondgitopshowwereleaseourmicroservicesonkubernetesatynap">Beyond GitOps: How we release our Microservices on Kubernetes at YNAP</h1>
+<!DOCTYPE html>
+<html lang="en">
+      <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Beyond GitOps: How we release our Microservices on Kubernetes at YNAP</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type = "image/png" href="../img/gullwing-icon.png" />
+
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-BGXW90V3SE">
+</script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-BGXW90V3SE");
+</script>
+<meta property="og:title" content="Beyond GitOps: How we release our Microservices on Kubernetes at YNAP" />
+<meta property="og:description" content="In recent posts I have talked about our adoption of Kubernetes, in this post I’m going to talk about how we release our applications into our cluster. I recommend making a brew because we are going down the rabbit hole, as before I even start, I think I need to answer an important question.I think the best answer to this can be found within the comic “Smooth Sailing”, but we have all been given the sales pitch, I want to give you a real world example. Why did the YNAP frontend team adopt Kubernetes? It all came about during the Mr Porter..." />
+<meta property="og:image" content="https://miro.medium.com/max/1400/1*pP1j9qLatEenSLXESFFS_g.png" />
+</head>
+
+<body>
+
+  <script>
+    // When the user scrolls the page, execute myFunction 
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("headerBar").style.width = scrolled + "%";
+    }
+  </script>
+
+<div class="page-banner">
+  <nav>
+    
+    <a href="templated-list.html">
+      <img id="index-image" src="../img/gullwing-logo.png" alt ="Gullwing Logo">
+    </a>
+    
+    <a href="https://www.gullwing.io/">
+      <img id="header-image" src="../img/gullwing-logo.png" alt ="Gullwing Logo">
+    </a>  
+  </nav>
+
+  <div class="header">
+    <div class="progress-container">
+      <div class="progress-bar" id="headerBar"></div>
+    </div>  
+  </div>
+</div>
+
+
+
+  <div class="mainBody">
+    <h1 id="beyondgitopshowwereleaseourmicroservicesonkubernetesatynap">Beyond GitOps: How we release our Microservices on Kubernetes at YNAP</h1>
 <p>In recent posts I have talked about our adoption of Kubernetes, in this post I’m going to talk about how we release our applications into our cluster.</p>
 <p>I recommend making a brew because we are going down the rabbit hole, as before I even start, I think I need to answer an important question.</p>
 <h2 id="whykubernetes">Why Kubernetes?</h2>
@@ -213,3 +276,6 @@ As well as helping people release applications, something else we wanted to impr
 <ul>
 <li><em>Impossible is a lie, it was just difficult. In the past we used Cloudformation to do this kind of orchestration but it bred a monster of configuration which took around an hour to complete a deployment. This was 5 years ago, you may have more luck with this approach in 2020.</em></li>
 </ul>
+  </div>
+</body>
+
