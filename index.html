@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>gullwing.io | Technical and creative agency</title>
+    <title>gullwing.io</title>
     <meta
       name="description"
-      content="A full service technical and creative agency with experience in goverment agencies, multi-billion pound companies and start ups."
+      content="gullwing.io"
     />
     <meta
       property="og:title"
@@ -14,199 +14,14 @@
     />
     <meta
       property="og:description"
-      content="A full service technical and creative agency with experience in goverment agencies, multi-billion pound companies and start ups."
+      content="gullwing.io"
     />
     <meta
       property="og:image"
       content="https://www.gullwing.io/img/gullwing-icon.png"
     />
     <link rel="icon" type="image/png" href="./img/gullwing-icon.png" />
-    <style>
-      :root {
-        --primary-blue: #0083c9;
-        --primary-white: #fff;
-        --primary-red: #df5738;
-        --dark-blue: #1065a3;
-        --light-red: #e85f40;
-      }
-      .light-red {
-        color: var(--light-red);
-      }
-      @keyframes change {
-        to {
-          opacity: 1;
-        }
-      }
-      body {
-        background: linear-gradient(
-          to right,
-          var(--primary-blue),
-          var(--dark-blue)
-        );
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        font-family: "Helvetica Neue", sans-serif;
-        font-weight: bold;
-      }
-      #ident {
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-      }
-      section {
-        opacity: 0;
-        transition: opacity 0.2s;
-      }
-      summary {
-        padding: 2% 15%;
-        color: var(--primary-white);
-        font-size: 25px;
-        letter-spacing: -1px;
-        line-height: 1;
-        user-select: none;
-      }
-      summary p {
-        opacity: 0;
-      }
-      ul {
-        padding: 0;
-        font-size: 18px;
-      }
-      li {
-        display: inline;
-      }
-      li + li::before {
-        color: var(--primary-white);
-        content: " | ";
-      }
-      a {
-        color: var(--primary-white);
-        text-decoration: none;
-      }
-      nav {
-        width: 100%;
-        text-align: center;
-      }
-      #ident {
-        width: 100%;
-        height: 100%;
-      }
-    </style>
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-BGXW90V3SE"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-BGXW90V3SE");
-    </script>
-  </head>
-  <body>
-    <main>
-      <div id="ident"></div>
-      <section>
-        <summary>
-          <p>
-            gull<span class="light-red">w</span>ing.io is a full service
-            technical and creative agency.
-          </p>
-          <p>
-            with experience in goverment agencies, multi-billion pound companies
-            and start ups.
-          </p>
-          <p>
-            focusing on engineering, technical and product consultancy, UX/UI,
-            illustration and motion design.
-          </p>
-        </summary>
-        <nav>
-          <ul>
-            <li>
-              <a
-                href="mailto:hello@gullwing.io?subject=Hello gullwing.io"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                hello@gullwing.io
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </section>
-    </main>
-  </body>
-  <script src="/js/player.js"></script>
-  <script>
-    let state = "start";
-    const ident = document.getElementById("ident");
-    const selection = document.getElementsByTagName("section")[0];
-    const ps = document
-      .getElementsByTagName("summary")[0]
-      .getElementsByTagName("p");
-    const paragraphs = Array.prototype.slice.call(ps);
 
-    const animation = bodymovin.loadAnimation({
-      container: ident,
-      renderer: "svg",
-      loop: false,
-      autoplay: true,
-      path: "ident/data.json",
-      focusable: false,
-      initialSegment: [0, 103],
-    });
-
-    const enterSite = () => {
-      state = "end";
-      animation.playSegments([125, 180], true);
-    };
-
-    const fireEvent = (event, method) => {
-      gtag("event", event, method);
-    };
-
-    animation.addEventListener("complete", () => {
-      // intro segment
-      if (animation.currentRawFrame === 102) {
-        ident.style.cursor = "pointer";
-        state = "stop";
-        fireEvent("animation", { status: "start" });
-        setTimeout(() => {
-          if (state === "stop") {
-            enterSite();
-            fireEvent("enter", { method: "timer" });
-          }
-        }, 1500);
-      }
-      // exit segment
-      if (animation.currentRawFrame === 54) {
-        if (ident) {
-          ident.remove();
-        }
-        selection.style.opacity = "1";
-        paragraphs.forEach((paragraph, index) => {
-          paragraph.style.animation = `change ${
-            index * 1
-          }s ease-in-out forwards`;
-        });
-        fireEvent("animation", { status: "end" });
-      }
-    });
-
-    ident.addEventListener("click", () => {
-      if (state === "stop") {
-        enterSite();
-        fireEvent("enter", { method: "client" });
-      }
-    });
-  </script>
-</html>
-<!--
                   . 
       *#######*  (* 
    (#           (/  
@@ -217,4 +32,4 @@
     .##       ## 
       *#######*
      gullwing.io
--->
+
